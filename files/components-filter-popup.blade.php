@@ -1,3 +1,4 @@
+
 @props(['id'])
 
 <div class="filter-widget" data-filter-widget>
