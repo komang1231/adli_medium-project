@@ -1,0 +1,150 @@
+.topbar {
+    width: 100%;
+    height: 70px;
+
+    display: flex;
+    align-items: center;
+
+    background-color: var(--neutral-sidebar);
+}
+
+/* Kiri */
+.topbar-left {
+    width: 70px;
+    height: 70px;
+}
+
+/* Hamburger */
+.topbar-menu {
+    width: 70px;
+    height: 70px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    padding: 0;
+    border: 0;
+    background: transparent;
+}
+
+.topbar-menu img {
+    width: 30px;
+    height: 30px;
+}
+
+/* Tengah */
+.topbar-actions {
+    flex: 1;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 15px;
+}
+
+.topbar-action {
+    height: 48px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border: 0;
+    border-radius: 24px;
+
+    color: var(--white);
+    font-family: inherit;
+    font-size: 16px;
+}
+
+.topbar-action .icon {
+    width: 20px;
+    height: 20px;
+}
+
+.topbar-action .add {
+    width: 12px;
+    height: 12px;
+}
+
+.topbar-action span {
+    margin: 0 10px;
+}
+
+.topbar-transaction {
+    width: 180px;
+    height: 38px;
+    background-color: var(--btn-search);
+}
+
+.topbar-customer {
+    width: 180px;
+    height: 38px;
+    background-color: var(--sc-profile);
+}
+
+/* Kanan */
+.topbar-profile {
+    width: 255px;
+
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 20px;
+
+    padding-right: 24px;
+}
+
+.topbar-mail,
+.topbar-user {
+    border: 0;
+    background: transparent;
+    padding: 0;
+}
+
+.topbar-mail {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.topbar-mail img {
+    width: 24px;
+    height: 24px;
+}
+
+.topbar-user {
+    display: flex;
+    align-items: center;
+    width: 120px;
+    gap: 20px;
+
+    background-color: var(--sc-profile);
+    border: 0;
+    padding: 5px 10px 5px 5px;
+    border-radius: 24px 5px 5px 24px;
+}
+
+.topbar-user img {
+    width: 40px;
+    height: 40px;
+}
+
+.topbar-user-info {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+.topbar-user-name {
+    color: var(--white);
+    font-size: 14px;
+    font-weight: 600;
+}
+
+.topbar-user-role {
+    color: var(--role-text);
+    font-size: 11px;
+    font-weight: 500;
+}

@@ -1,0 +1,154 @@
+.sidebar {
+    position: fixed;
+    top: 0;
+    left: 0;
+
+    width: 255px;
+    height: 100vh;
+
+    background-color: var(--neutral-sidebar);
+    border-right: 1px solid var(--neutral-sidebar-hover);
+
+    padding: 28px 0px;
+
+    transition: width 0.4s ease;
+}
+
+.sidebar.collapsed {
+    width: 70px;
+}
+
+.sidebar-logo-full {
+    display: block;
+}
+
+.sidebar-logo-icon {
+    display: none;
+}
+
+.sidebar.collapsed .sidebar-logo-full {
+    display: none;
+}
+
+.sidebar.collapsed .sidebar-logo-icon {
+    display: block;
+}
+
+
+.main-wrapper {
+    margin-left: 255px;
+    transition: margin-left 0.4s ease;
+}
+
+.main-wrapper.sidebar-collapsed {
+    margin-left: 70px;
+}
+
+
+
+.sidebar-logo {
+    display: block;
+    width: 190px;
+    height: 60px;
+
+    margin: 0px 20px 0px;
+}
+
+.sidebar-logo-icon {
+    margin: 10px 0 0 0px;
+    justify-content: center;
+}
+
+hr {
+    color: var(--white);
+}
+
+.sidebar-menu {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.sidebar-item {
+    position: relative;
+    display: flex;
+    align-items: center;
+    height: 52px;
+    gap: 14px;
+
+    padding: 12px 14px;
+
+    color: var(--neutral-text);
+    text-decoration: none;
+
+    border-radius: 8px;
+
+    transition: 0.2s ease;
+}
+
+.sidebar.collapsed .sidebar-item {
+    justify-content: center;
+}
+
+.sidebar.collapsed .sidebar-item .menu-name {
+    display: none;
+
+}
+
+.sidebar-icon {
+    width: 20px;
+    height: 20px;
+
+    display: block;
+
+    background-color: var(--neutral-text);
+
+    mask-image: var(--icon);
+    mask-repeat: no-repeat;
+    mask-position: center;
+    mask-size: contain;
+
+    -webkit-mask-image: var(--icon);
+    -webkit-mask-repeat: no-repeat;
+    -webkit-mask-position: center;
+    -webkit-mask-size: contain;
+}
+.sidebar.collapsed .sidebar-icon {
+    display: block;
+
+}
+.sidebar-item:hover .sidebar-icon{
+    background-color: var(--white);
+}
+.sidebar-item.active .sidebar-icon {
+    background-color: var(--white);
+}
+
+.sidebar-item:hover {
+    background-color: var(--neutral-sidebar-hover);
+    color: var(--white);
+
+    .sidebar-icon {
+        color: var(--white);
+    }
+}
+
+.sidebar-item.active {
+    background-color: var(--neutral-sidebar-hover);
+    color: var(--white);
+}
+
+.sidebar-item.active::before {
+    content: "";
+
+    position: absolute;
+    left: 0;
+    top: 50%;
+    transform: translateY(-50%);
+
+    width: 4px;
+    height: 32px;
+
+    background-color: var(--sc-profile);
+    border-radius: 0 4px 4px 0;
+}

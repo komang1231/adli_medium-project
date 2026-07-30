@@ -1,0 +1,86 @@
+@import 'bootstrap/dist/css/bootstrap.min.css';
+@import 'bootstrap/dist/css/bootstrap.min.css';
+@import 'bootstrap-icons/font/bootstrap-icons.css';
+
+@import './sidebar.css';
+@import './topbar.css';
+@import './dashboard.css';
+@import './table.css';
+@import './form.css';
+
+:root {
+    
+}
+
+/* Dark */
+[data-theme="dark"] {
+    --bg: #20203C;
+
+    --white: #F6F6F9;
+    --neutral-text: #ABABCE;
+
+    --btn-search: #363678;
+    --role-text: #B8BACB;
+    --sc-profile: #5555AA;
+    --sc-pelanggan: #7070B8;
+    --sc-transaksi: #5C5CCC;
+
+    --neutral-btn-add: #5555AA;
+    --error-btn-trash: #850000;
+    --neutral-btn-sort: #C6C6DC;
+    --accent-btn-edit: #F5B83D;
+    --error-btn-hapus: #EF4444;
+
+    --neutral-sidebar-hover: #191943;
+    --neutral-sidebar: #10102D;
+
+    --neutral-pagination: #383A4C;
+    --neutral-pagination-active: #6c63ff;
+}
+
+/* Light */
+[data-theme="light"] {
+    --bg: #F5F5FA;
+
+    --white: #2A2A45;
+    --neutral-text: #6B6C8C;
+
+    --btn-search: #ECECF6;
+    --role-text: #5B5C78;
+    --sc-profile: #6363B0;
+    --sc-pelanggan: #7D7DBE;
+    --sc-transaksi: #7272D1;
+
+    --neutral-btn-add: #6363B0;
+    --error-btn-trash: #A13030;
+    --neutral-btn-sort: #D5D5E8;
+    --accent-btn-edit: #F5B83D;
+    --error-btn-hapus: #EF4444;
+
+    --neutral-sidebar-hover: #F1F1FA;
+    --neutral-sidebar: #FFFFFF;
+
+    --neutral-pagination: #E7E7F0;
+    --neutral-pagination-active: #6c63ff;
+}
+
+body {
+    margin: 0;
+    background-color: var(--bg);
+}
+
+
+
+.main-content {
+    padding: 30px;
+}
+
+@source '../../vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php';
+@source '../../storage/framework/views/*.php';
+@source '../**/*.blade.php';
+@source '../**/*.js';
+
+@theme {
+    --font-sans: 'Instrument Sans', ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji',
+        'Segoe UI Symbol', 'Noto Color Emoji';
+}

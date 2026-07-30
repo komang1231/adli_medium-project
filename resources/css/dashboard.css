@@ -1,0 +1,41 @@
+.invoice-card {
+    border-radius: 14px;
+    padding: 28px 24px;
+    color: #ffffff;
+    min-height: 140px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.25);
+  }
+
+  .invoice-card .label {
+    font-size: 0.95rem;
+    opacity: 0.9;
+    margin-bottom: 6px;
+  }
+
+  .invoice-card .value {
+    font-size: 2rem;
+    font-weight: 700;
+  }
+
+  /* card 1: ungu -> biru */
+  .card-purple {
+    background: linear-gradient(135deg, #8f3ef0 0%, #6c63ff 100%);
+  }
+
+  /* card 2: salmon -> pink */
+  .card-pink {
+    background: linear-gradient(135deg, #ff8a8a 0%, #ef2f6a 100%);
+  }
+
+  /* card 3: kuning -> oranye */
+  .card-orange {
+    background: linear-gradient(135deg, #ffc267 0%, #ff7a1a 100%);
+  }
+
+  /* card 4: biru -> indigo */
+  .card-blue {
+    background: linear-gradient(135deg, #4a3bf3 0%, #7c8bff 100%);
+  }

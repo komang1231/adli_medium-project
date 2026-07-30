@@ -1,0 +1,60 @@
+.offcanvas {
+    background-color: var(--bg);
+    color: var(--white);
+    width: 380px;
+}
+
+.offcanvas-header {
+    border-bottom: 1px solid var(--neutral-pagination);
+}
+
+.offcanvas-title {
+    font-weight: 500;
+    font-size: 16px;
+    color: var(--white);
+}
+
+.form-label {
+    color: var(--role-text);
+    font-size: 13px;
+    margin-bottom: 6px;
+}
+
+.form-control {
+    background-color: var(--btn-search);
+    border: 1px solid transparent;
+    color: var(--white);
+    border-radius: 8px;
+    padding: 10px 12px;
+    font-size: 14px;
+}
+
+.form-control::placeholder {
+    color: var(--neutral-text);
+}
+
+.form-control:focus {
+    background-color: var(--btn-search);
+    color: var(--white);
+    border-color: var(--neutral-pagination-active);
+    box-shadow: 0 0 0 0.15rem rgba(108, 99, 255, 0.25);
+}
+
+.form-control.is-invalid {
+    border-color: var(--error-btn-hapus);
+}
+
+.btn-submit {
+    background-color: var(--neutral-pagination-active);
+    color: var(--white);
+    border: none;
+    border-radius: 8px;
+    padding: 10px 24px;
+    font-size: 14px;
+    font-weight: 500;
+}
+
+.btn-submit:hover {
+    color: var(--white);
+    opacity: 0.9;
+}
