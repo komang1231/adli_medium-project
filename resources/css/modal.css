@@ -1,0 +1,117 @@
+.modal-custom {
+    background: var(--neutral-sidebar);
+    border: 1px solid var(--neutral-sidebar-hover);
+    border-radius: 18px;
+    overflow: hidden;
+}
+
+.modal-header {
+    padding: 18px 22px;
+    border-bottom: 1px solid var(--neutral-sidebar-hover);
+    background: transparent;
+}
+
+.modal-title {
+    color: var(--white);
+    font-size: 18px;
+    font-weight: 600;
+}
+
+.btn-modal-close {
+    margin-left: 65%;
+    width: 36px;
+    height: 36px;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    background: transparent;
+    border: none;
+    border-radius: 10px;
+
+    color: var(--neutral-text);
+
+    transition: .2s;
+}
+
+.btn-modal-close:hover {
+    background: var(--neutral-sidebar-hover);
+    color: var(--white);
+}
+
+.modal-body {
+    padding: 24px 22px;
+    color: var(--white);
+    font-size: 15px;
+    line-height: 1.7;
+}
+
+.modal-body strong {
+    color: var(--accent-btn-edit);
+    font-weight: 600;
+}
+
+.modal-footer {
+    padding: 18px 22px;
+    border-top: 1px solid var(--neutral-sidebar-hover);
+
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+}
+
+.btn-cancel {
+    padding: 9px 18px;
+
+    border: 1px solid var(--neutral-btn-sort);
+    border-radius: 10px;
+
+    background: transparent;
+    color: var(--neutral-text);
+
+    transition: .2s;
+}
+
+.btn-cancel:hover {
+    border-color: var(--white);
+    color: var(--white);
+}
+
+.btn-konfirmasi {
+    background-color: var(--neutral-btn-sort);
+    color: var(--bg);
+
+    border: none;
+    border-radius: 10px;
+
+    padding: 11px 18px;
+
+    font-size: 13px;
+    font-weight: 500;
+
+    cursor: pointer;
+
+    transition: opacity 150ms ease,
+                transform 150ms ease;
+}
+
+.btn-konfirmasi:hover {
+    opacity: 0.9;
+}
+
+.btn-konfirmasi:active {
+    transform: scale(0.98);
+}
+
+.btn-konfirmasi:focus-visible {
+    outline: none;
+    box-shadow: 0 0 0 2px var(--neutral-pagination-active);
+}
+
+.modal-footer .btn-submit,
+.modal-footer .btn-hapus,
+.modal-footer .btn-edit,
+.modal-footer .btn-trash {
+    min-width: 120px;
+}

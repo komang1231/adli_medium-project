@@ -19,18 +19,10 @@
 
         <div class="d-flex justify-content-between align-items-center mb-4">
             <div>
-                <button class="btn btn-add" type="button" data-bs-toggle="offcanvas" data-bs-target="#formOffcanvas">
-
+                <a href="{{ route('menus.create') }}" class="btn btn-add me-2" type="button" data-bs-toggle="offcanvas"
+                    data-bs-target="#formOffcanvas" aria-controls="formOffcanvas">
                     <img class="icon" src="{{ asset('assets/icons/table/add.svg') }}" alt="">
                     Add
-
-                </button>
-                <a href="{{ route('menu.trash') }}" class="btn btn-trash">
-
-                    <img class="icon" src="{{ asset('assets/icons/table/trash.svg') }}" alt="">
-
-                    Trash
-
                 </a>
             </div>
 
@@ -55,8 +47,7 @@
                             <select name="kategori" class="filter-select">
                                 <option value="" {{ request('kategori') == '' ? 'selected' : '' }}>Semua</option>
                                 @foreach ($categories as $category)
-                                    <option value="{{ $category->id }}"
-                                        {{ request('kategori') == $category->id ? 'selected' : '' }}>
+                                    <option value="{{ $category->id }}" {{ request('kategori') == $category->id ? 'selected' : '' }}>
                                         {{ $category->nama_category }}
                                     </option>
                                 @endforeach
@@ -112,7 +103,7 @@
                             <td>{{ $menus->firstItem() + $loop->index }}</td>
                             <td>{{ $menu->kode_menu }}</td>
                             <td>{{ $menu->nama_menu }}</td>
-                            <td>Rp {{ number_format($menu->harga, 0, ',', '.') }}</td>
+                            <td>{{ number_format($menu->harga, 0, ',', '.') }}</td>
                             <td>{{ $menu->stok }}</td>
                             <td>
                                 @if ($menu->foto_menu)
@@ -125,18 +116,13 @@
                             <td>{{ $menu->category->nama_category ?? '-' }}</td>
 
                             <td class="text-center">
-                                <button type="button" class="btn-edit btn-edit-menu"
-                                    data-action="{{ route('menus.update', $menu->id) }}"
-                                    data-nama="{{ $menu->nama_menu }}" data-harga="{{ $menu->harga }}"
-                                    data-stok="{{ $menu->stok }}" data-category="{{ $menu->category_id }}"
-                                    data-foto="{{ $menu->foto_menu ? asset('storage/' . $menu->foto_menu) : '' }}">
-
-                                    Edit
-
+                                <button type="button" class="btn-edit btn-edit-menu" data-id="{{ $menu->id }}"
+                                    data-name="{{ $menu->nama_menu }}"
+                                    data-action="{{ route('menus.update', $menu->id) }}"> Edit
                                 </button>
 
-                                <button type="button" class="btn-hapus btn-delete-menu ms-2" data-id="{{ $menu->id }}"
-                                    data-name="{{ $menu->nama_menu }}"
+                                <button type="button" class="btn-hapus btn-delete-menu ms-2"
+                                    data-id="{{ $menu->id }}" data-name="{{ $menu->nama_menu }}"
                                     data-action="{{ route('menus.destroy', $menu->id) }}">
                                     Hapus
                                 </button>

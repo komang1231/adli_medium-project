@@ -22,9 +22,9 @@ class PaymentProviderRequest extends FormRequest
     public function rules(): array
     {
         return [
-			'kode_payment_provider' => 'required|string',
-			'payment_method_id' => 'required',
-			'nama_payment_provider' => 'required|string',
+			// 'kode_payment_provider' => 'required|string',
+			// 'payment_method_id' => 'required',
+			// 'nama_payment_provider' => 'required|string',
         ];
     }
 }

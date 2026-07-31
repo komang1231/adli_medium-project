@@ -38,4 +38,33 @@ class User extends Model
     protected $fillable = ['kode_user', 'foto_profile', 'nama_user', 'email', 'no_tlp', 'role', 'status', 'password'];
 
 
+    protected static function booted(): void
+    {
+        static::creating(function ($akun) {
+
+            // Prefix jabatan
+            $prefix = match ($akun->role) {
+                'Admin' => 'ADM',
+                'Manager' => 'MGN',
+                'Staff' => 'STF',
+                default => 'STF',
+            };
+
+            // Inisial nama (maksimal 3 huruf)
+            $inisial = collect(explode(' ', trim($akun->name)))
+                ->filter()
+                ->map(fn($kata) => strtoupper(substr($kata, 0, 1)))
+                ->take(3)
+                ->implode('');
+
+            // Ambil angka pertama dari nomor telepon
+            $angkaDepan = substr(preg_replace('/\D/', '', $akun->no_tlp), 0, 1);
+
+            // Tanggal + Jam
+            $tanggalJam = now()->format('dmHis');
+
+            // Kode user
+            $akun->kode_user = $prefix . $inisial . $angkaDepan . $tanggalJam;
+        });
+    }
 }

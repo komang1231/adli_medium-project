@@ -22,7 +22,7 @@ class Category extends Model
 {
     use SoftDeletes;
 
-    protected $perPage = 20;
+    protected $perPage = 10;
 
     /**
      * The attributes that are mass assignable.
@@ -49,7 +49,7 @@ class Category extends Model
             // Tanggal + Jam
             $tanggalJam = now()->format('dmHis');
 
-            // Kode akun
+            // Kode category
             $category->kode_category = $inisial . $tanggalJam;
         });
     }

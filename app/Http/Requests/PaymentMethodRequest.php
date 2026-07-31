@@ -22,8 +22,8 @@ class PaymentMethodRequest extends FormRequest
     public function rules(): array
     {
         return [
-			'kode_payment_method' => 'required|string',
-			'nama_payment_method' => 'required|string',
+			// 'kode_payment_method' => 'required|string',
+			// 'nama_payment_method' => 'required|string',
         ];
     }
 }

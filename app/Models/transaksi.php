@@ -83,7 +83,7 @@ class Transaksi extends Model
      */
     public function transferBank()
     {
-        return $this->belongsTo(\App\Models\TransferBank::class, 'transfer_bank_id', 'id');
+        return $this->belongsTo(\App\Models\Transfer_Bank::class, 'transfer_bank_id', 'id');
     }
     
     /**
@@ -99,7 +99,73 @@ class Transaksi extends Model
      */
     public function detailTransakses()
     {
-        return $this->hasMany(\App\Models\DetailTransaksi::class, 'id', 'transaksi_id');
+        return $this->hasMany(\App\Models\detail_transaksi::class, 'id', 'transaksi_id');
     }
+
+
+    protected static function booted(): void
+{
+    static::creating(function ($transaksi) {
+
+        // Inisial nama pelanggan (maksimal 3 huruf)
+        $inisialPelanggan = collect(explode(' ', trim($transaksi->nama_pelanggan)))
+            ->filter()
+            ->map(fn ($kata) => strtoupper(substr($kata, 0, 1)))
+            ->take(3)
+            ->implode('');
+
+        // Angka pertama nomor telepon
+        $angkaNoTlp = substr(preg_replace('/\D/', '', $transaksi->no_tlp), 0, 1);
+
+        // Ambil payment method
+        $paymentMethod = \App\Models\PaymentMethod::find($transaksi->payment_method_id);
+        $inisialPaymentMethod = $paymentMethod
+            ? strtoupper(substr($paymentMethod->nama_payment_method, 0, 1))
+            : '';
+
+        // Ambil payment provider
+        $paymentProvider = \App\Models\PaymentProvider::find($transaksi->payment_provider_id);
+        $inisialPaymentProvider = $paymentProvider
+            ? strtoupper(substr($paymentProvider->nama_payment_provider, 0, 1))
+            : '';
+
+        // Angka pertama grand total
+        $angkaGrandTotal = substr((string) $transaksi->grand_total, 0, 1);
+
+        // Ambil user
+        $user = \App\Models\User::find($transaksi->user_id);
+
+        // Inisial nama user
+        $inisialUser = $user
+            ? collect(explode(' ', trim($user->name)))
+                ->filter()
+                ->map(fn ($kata) => strtoupper(substr($kata, 0, 1)))
+                ->take(3)
+                ->implode('')
+            : '';
+
+        // Inisial role user
+        $inisialRole = match ($user?->role) {
+            'Admin' => 'ADM',
+            'Manager' => 'MGN',
+            'Staff' => 'STF',
+            default => 'USR',
+        };
+
+        // Tanggal + Jam
+        $tanggalJam = now()->format('dmHis');
+
+        // Kode transaksi
+        $transaksi->kode_transaksi =
+            $inisialPelanggan .
+            $angkaNoTlp .
+            $inisialPaymentMethod .
+            $inisialPaymentProvider .
+            $angkaGrandTotal .
+            $inisialUser .
+            $inisialRole .
+            $tanggalJam;
+    });
+}
     
 }

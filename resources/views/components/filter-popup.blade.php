@@ -4,9 +4,9 @@
 <div class="filter-widget" data-filter-widget>
 
     <button type="button" class="btn-filter" data-filter-trigger id="{{ $id }}-trigger" aria-haspopup="true"
-        aria-expanded="false" aria-controls="{{ $id }}-popup">
+        aria-expanded="false" aria-controls="{{ $id }}-popup ">
         <img src="{{ asset('assets/icons/table/filter.svg') }}">
-        <span>Filter</span>
+        {{-- <span>Filter</span> --}}
         <span class="filter-dot" data-filter-dot aria-hidden="true"></span>
     </button>
 

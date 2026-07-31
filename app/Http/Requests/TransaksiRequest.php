@@ -22,9 +22,9 @@ class TransaksiRequest extends FormRequest
     public function rules(): array
     {
         return [
-			'kode_transaksi' => 'required|string',
-			'status_pesanan' => 'required',
-			'tipe_pelanggan' => 'required',
+			// 'kode_transaksi' => 'required|string',
+			// 'status_pesanan' => 'required',
+			// 'tipe_pelanggan' => 'required',
 			'nama_pelanggan' => 'required|string',
 			'no_tlp' => 'required|string',
 			'payment_method_id' => 'required',

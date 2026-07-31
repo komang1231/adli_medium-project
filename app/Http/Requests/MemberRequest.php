@@ -22,10 +22,10 @@ class MemberRequest extends FormRequest
     public function rules(): array
     {
         return [
-			'kode_pelanggan' => 'required|string',
+			// 'kode_pelanggan' => 'required|string',
 			'nama_pelanggan' => 'required|string',
 			'no_tlp' => 'required|string',
-			'status' => 'required',
+			// 'status' => '',
         ];
     }
 }

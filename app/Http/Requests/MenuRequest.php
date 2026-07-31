@@ -22,12 +22,12 @@ class MenuRequest extends FormRequest
     public function rules(): array
     {
         return [
-			'kode_menu' => 'required|string',
-			'nama_menu' => 'required|string',
-			'harga' => 'required',
-			'stok' => 'required',
-			'foto_menu' => 'required|string',
-			'category_id' => 'required',
+            // 'kode_menu' => 'required|string',
+            'nama_menu' => 'required|string',
+            'harga' => 'required|numeric|min:0',
+            'stok' => 'required|integer|min:0',
+            'category_id' => 'required|exists:categories,id',
+            'foto_menu' => 'nullable|image|mimes:jpg,jpeg,png,webp|max:2048',
         ];
     }
 }

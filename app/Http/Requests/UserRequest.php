@@ -22,13 +22,13 @@ class UserRequest extends FormRequest
     public function rules(): array
     {
         return [
-			'kode_user' => 'required|string',
-			'foto_profile' => 'string',
+			// 'kode_user' => 'required|string',
+			// 'foto_profile' => 'string',
 			'nama_user' => 'required|string',
 			'email' => 'required|string',
 			'no_tlp' => 'required|string',
-			'role' => 'required',
-			'status' => 'required',
+			// 'role' => 'required',
+			// 'status' => 'required',
             'password' => 'required'
         ];
     }

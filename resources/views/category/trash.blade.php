@@ -26,19 +26,14 @@
                 ]) }}"
                     class="sort-btn me-3 px-2 py-2">
 
-                    <img src="{{ asset($sort == 'asc'
-                        ? 'assets/icons/table/sort_up.svg'
-                        : 'assets/icons/table/sort_down.svg') }}"
+                    <img src="{{ asset($sort == 'asc' ? 'assets/icons/table/sort_up.svg' : 'assets/icons/table/sort_down.svg') }}"
                         alt="Sort">
 
                 </a>
 
                 <form action="{{ route('categories.trash') }}" method="GET" class="d-flex align-items-center">
 
-                    <input type="text"
-                        name="search"
-                        class="form-control search-box"
-                        placeholder="Cari..."
+                    <input type="text" name="search" class="form-control search-box" placeholder="Cari..."
                         value="{{ request('search') }}">
 
                     <button type="submit" class="search-icon-btn">
@@ -53,7 +48,8 @@
             <table class="table">
                 <thead>
                     <tr>
-                        <th>Kode</th>
+                        <th width="70">No</th>
+                        <th width="140">Kode</th>
                         <th>Nama Kategori</th>
                         <th class="text-center">Aksi</th>
                     </tr>
@@ -62,35 +58,39 @@
                 <tbody>
                     @forelse ($categories as $category)
                         <tr>
+                            <td>{{ $categories->firstItem() + $loop->index }}</td>
                             <td>{{ $category->kode_category }}</td>
                             <td>{{ $category->nama_category }}</td>
 
                             <td class="text-center">
 
-                                <form action="{{ route('categories.restore', $category->id) }}"
-                                    method="POST"
+                                <form action="{{ route('categories.restore', $category->id) }}" method="POST"
                                     class="d-inline">
 
                                     @csrf
                                     @method('PATCH')
 
-                                    <button type="submit" class="btn-restore">
+                                    <button type="button" class="btn-restore btn-restore-category"
+                                        data-name="{{ $category->nama_category }}"
+                                        data-action="{{ route('categories.restore', $category->id) }}">
+
                                         Restore
+
                                     </button>
 
                                 </form>
 
-                                <form action="{{ route('categories.forceDelete', $category->id) }}"
-                                    method="POST"
+                                <form action="{{ route('categories.forceDelete', $category->id) }}" method="POST"
                                     class="d-inline">
-
                                     @csrf
                                     @method('DELETE')
 
-                                    <button type="submit" class="btn-hapus ms-2">
-                                        Delete
-                                    </button>
+                                    <button type="submit" class="btn-hapus"
+                                        onclick="return confirm('Yakin ingin menghapus permanen kategori ini?')">
 
+                                        Delete
+
+                                    </button>
                                 </form>
 
                             </td>
@@ -119,4 +119,20 @@
         </div>
 
     </div>
+
+    <x-modal.action-modal id="restoreCategoryModal" title="Restore Category" buttonText="Restore" buttonClass="btn-submit">
+
+        Apakah kamu yakin ingin me-restore kategori
+        <strong id="restoreCategoryName"></strong>?
+
+    </x-modal.action-modal>
+
+
+    <x-modal.action-modal id="forceDeleteCategoryModal" title="Delete Permanently" buttonText="Delete"
+        buttonClass="btn-submit">
+
+        Apakah kamu yakin ingin menghapus permanen kategori
+        <strong id="forceDeleteCategoryName"></strong>?
+
+    </x-modal.action-modal>
 @endsection

@@ -1,0 +1,110 @@
+/* =========================================================
+   NEW: form select (used for "Kategori" dropdown on Menu form)
+   No precedent in Category — styled to match .form-control.
+   ========================================================= */
+
+.form-select-custom {
+    width: 100%;
+    background-color: var(--btn-search);
+    color: var(--white);
+    border: 1px solid transparent;
+    border-radius: 8px;
+    padding: 10px 12px;
+    font-size: 14px;
+    appearance: none;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6' viewBox='0 0 10 6'%3E%3Cpath d='M1 1l4 4 4-4' stroke='%23ABABCE' stroke-width='1.5' fill='none' fill-rule='evenodd'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 14px center;
+}
+
+.form-select-custom:focus {
+    outline: none;
+    background-color: var(--btn-search);
+    color: var(--white);
+    border-color: var(--neutral-pagination-active);
+    box-shadow: 0 0 0 0.15rem rgba(108, 99, 255, 0.25);
+}
+
+.form-select-custom.is-invalid {
+    border-color: var(--error-btn-hapus);
+}
+
+/* Style the <option> list itself where the browser allows it */
+.form-select-custom option {
+    background-color: var(--neutral-sidebar);
+    color: var(--white);
+}
+
+
+/* =========================================================
+   NEW: file upload control (used for "Foto Menu")
+   Native <input type="file"> is visually hidden; the <label>
+   becomes the clickable, styled surface.
+   ========================================================= */
+
+.form-file-input {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
+}
+
+.form-file-custom {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    width: 100%;
+    background-color: var(--btn-search);
+    border: 1px dashed var(--neutral-btn-sort);
+    border-radius: 8px;
+    padding: 10px 12px;
+    cursor: pointer;
+    transition: border-color 150ms ease, background-color 150ms ease;
+}
+
+.form-file-custom:hover {
+    border-color: var(--neutral-pagination-active);
+}
+
+.form-file-custom .icon {
+    width: 18px;
+    height: 18px;
+    flex-shrink: 0;
+}
+
+.form-file-text {
+    font-size: 13px;
+    color: var(--white);
+    white-space: nowrap;
+}
+
+.form-file-name {
+    font-size: 12px;
+    color: var(--neutral-text);
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+/* Reflects .form-control.is-invalid pattern for the file control */
+.form-file-input.is-invalid + .form-file-custom {
+    border-color: var(--error-btn-hapus);
+    border-style: solid;
+}
+
+/* Thumbnail shown in the table for existing photos */
+.menu-thumb {
+    width: 40px;
+    height: 40px;
+    object-fit: cover;
+    border-radius: 6px;
+}
+
+.text-muted-cell {
+    color: var(--neutral-text);
+}

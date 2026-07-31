@@ -1,3 +1,11 @@
 import './bootstrap';
 import 'bootstrap';
 import './sidebar';
+import './filter-popup';
+import './form_edit';
+import './modal/delete';
+import './modal/edit';
+import './modal/action-modal';
+import './modal/restore';
+import './modal/force-delete';  
+import './form_edit_menu';

@@ -16,30 +16,31 @@ class CategoryController extends Controller
      */
     public function index(Request $request): View
     {
-        $search = $request->search;
-        $sort = $request->sort ?? 'desc';
-        $used = $request->used;
+            $search = $request->search;
+            $sort = $request->sort ?? 'desc';
+            $used = $request->used;
 
-        $categories = Category::withCount('menus')
-            ->when($search, function ($query) use ($search) {
-                $query->where('kode_category', 'like', "%{$search}%")
-                    ->orWhere('nama_category', 'like', "%{$search}%");
-            })
-            ->when($used == 'yes', function ($query) {
-                $query->has('menus');
-            })
-            ->when($used == 'no', function ($query) {
-                $query->doesntHave('menus');
-            })
-            ->orderBy('kode_category', $sort)
-            ->paginate(10)
-            ->withQueryString();
+            $categories = Category::withCount('menus')
+                ->when($search, function ($query) use ($search) {
+                    $query->where('kode_category', 'like', "%{$search}%")
+                        ->orWhere('nama_category', 'like', "%{$search}%");
+                })
+                ->when($used == 'yes', function ($query) {
+                    $query->has('menus');
+                })
+                ->when($used == 'no', function ($query) {
+                    $query->doesntHave('menus');
+                })
+                ->orderBy('kode_category', $sort)
+                ->paginate(10)
+                ->withQueryString();
 
-        return view('category.index', compact(
-            'categories',
-            'search',
-            'sort'
-        ));
+            return view('category.index', compact(
+                'categories',
+                'search',
+                'sort',
+                'used',
+            ));
     }
 
     /**

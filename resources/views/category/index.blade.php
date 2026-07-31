@@ -6,7 +6,11 @@
 
 @section('content')
     <div class="content-card">
-
+        @if ($message = Session::get('success'))
+            <div class="alert alert-success">
+                <p>{{ $message }}</p>
+            </div>
+        @endif
         <div class="d-flex justify-content-between align-items-center mb-4">
             <h5>Data Kategori</h5>
         </div>
@@ -35,30 +39,34 @@
                         'used' => request('used'),
                         'sort' => $sort == 'asc' ? 'desc' : 'asc',
                     ]) }}"
-                        class="sort-btn me-3 px-2 py-2">
+                        class="sort-btn me-2 px-2 py-2">
 
                         <img src="{{ asset($sort == 'asc' ? 'assets/icons/table/sort_up.svg' : 'assets/icons/table/sort_down.svg') }}"
                             alt="Sort">
 
                     </a>
 
-                    <select name="used" class="form-select filter-select me-3" onchange="this.form.submit()">
+                    <x-filter-popup id="category-filter">
 
-                        <option value="">Semua</option>
+                        <x-filter-section label="Digunakan" filter-key="used">
 
-                        <option value="yes" {{ request('used') == 'yes' ? 'selected' : '' }}>
-                            Digunakan
-                        </option>
+                            <x-filter-radio name="used" value="" :checked="$used == ''">
+                                Semua
+                            </x-filter-radio>
 
-                        <option value="no" {{ request('used') == 'no' ? 'selected' : '' }}>
-                            Tidak Digunakan
-                        </option>
+                            <x-filter-radio name="used" value="yes" :checked="$used == 'yes'">
+                                Digunakan
+                            </x-filter-radio>
 
-                    </select>
+                            <x-filter-radio name="used" value="no" :checked="$used == 'no'">
+                                Tidak Digunakan
+                            </x-filter-radio>
 
+                        </x-filter-section>
 
+                    </x-filter-popup>
 
-                    <input type="text" name="search" class="form-control search-box" placeholder="Cari..."
+                    <input type="text" name="search" class="search-box" placeholder="Cari..."
                         value="{{ request('search') }}">
 
                     <button type="submit" class="search-icon-btn">
@@ -92,21 +100,21 @@
                             <td>{{ $category->menus_count }}</td>
 
                             <td class="text-center">
-                                <a href="{{ route('categories.edit', $category->id) }}" class="btn-edit ms-2">
-                                    Edit
-                                </a>
+                                <button type="button" class="btn-edit btn-edit-category" data-id="{{ $category->id }}"
+                                    data-name="{{ $category->nama_category }}"
+                                    data-action="{{ route('categories.update', $category->id) }}"
+                                    data-used="{{ $category->menus_count }}"> Edit 
+                                </button>
 
-                                <form action="{{ route('categories.destroy', $category->id) }}" method="POST"
-                                    class="d-inline">
 
-                                    @csrf
-                                    @method('DELETE')
+                                <button type="button" class="btn-hapus btn-delete-category ms-2"
+                                    data-id="{{ $category->id }}" data-name="{{ $category->nama_category }}"
+                                    data-action="{{ route('categories.destroy', $category->id) }}"
+                                    data-used="{{ $category->menus_count }}">
 
-                                    <button type="submit" class="btn-hapus ms-2">
-                                        Hapus
-                                    </button>
+                                    Hapus
 
-                                </form>
+                                </button>
                             </td>
                         </tr>
                     @empty
@@ -133,6 +141,7 @@
 
     </div>
 
+    {{-- OFF CANVAS CREATE --}}
     <div class="offcanvas offcanvas-end" tabindex="-1" id="formOffcanvas" aria-labelledby="formOffcanvasLabel">
         <div class="offcanvas-header">
             <span class="offcanvas-title" id="formOffcanvasLabel">{{ __('Create') }} Category</span>
@@ -148,4 +157,56 @@
             </form>
         </div>
     </div>
+
+    {{-- OFF CANVAS EDIT --}}
+    <div class="offcanvas offcanvas-end" tabindex="-1" id="editCategoryOffcanvas" aria-labelledby="formOffcanvasLabel">
+        <div class="offcanvas-header">
+            <span class="offcanvas-title" id="formOffcanvasLabel">{{ __('Create') }} Category</span>
+            <button type="button" class="btn-close btn-close-white" data-bs-dismiss="offcanvas"
+                aria-label="Close"></button>
+        </div>
+        <div class="offcanvas-body">
+            <form id="editForm" method="POST" action="" enctype="multipart/form-data">
+
+                @csrf
+                @method('PUT')
+
+                @include('category.edit')
+
+            </form>
+        </div>
+    </div>
+
+
+    {{-- MODAL EDIT --}}
+    <x-modal.action-modal id="editCategoryModal" title="Edit Kategori" buttonText="Lanjutkan" buttonClass="btn-submit">
+
+        Apakah kamu yakin ingin mengubah kategori
+
+        <strong id="editCategoryName"></strong> ?
+
+    </x-modal.action-modal>
+
+    {{-- MODAL HAPUS --}}
+    <x-modal.action-modal id="deleteCategoryModal" title="Hapus Kategori" buttonText="Hapus" buttonClass="btn-submit">
+
+        Apakah kamu yakin ingin menghapus kategori
+
+        <strong id="deleteCategoryName"></strong> ?
+
+    </x-modal.action-modal>
+
+    <x-modal.warning-modal id="warningCategoryModal" title="Tidak Dapat Menghapus">
+
+        Kategori
+
+        <strong id="warningCategoryName"></strong>
+
+        sedang digunakan oleh
+
+        <strong id="warningCategoryCount"></strong>
+
+        menu.
+
+    </x-modal.warning-modal>
 @endsection

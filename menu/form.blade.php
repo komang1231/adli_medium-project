@@ -1,4 +1,4 @@
-{{-- <div class="row">
+<div class="row">
     <div class="col-md-12">
 
         <div class="form-group mb-3">
@@ -29,7 +29,7 @@
             {!! $errors->first('stok', '<div class="invalid-feedback" role="alert"><strong>:message</strong></div>') !!}
         </div>
 
-        
+        {{-- NEW: select kategori, belum ada preseden desain di Category, pakai class .form-select-custom --}}
         <div class="form-group mb-3">
             <label for="category_id" class="form-label">{{ __('Kategori') }}</label>
             <select name="category_id" id="category_id" class="form-select-custom @error('category_id') is-invalid @enderror">
@@ -43,7 +43,7 @@
             {!! $errors->first('category_id', '<div class="invalid-feedback" role="alert"><strong>:message</strong></div>') !!}
         </div>
 
-        
+        {{-- NEW: upload foto, belum ada preseden desain di Category, pakai class .form-file-custom --}}
         <div class="form-group mb-4">
             <label for="foto_menu" class="form-label">{{ __('Foto Menu') }}</label>
             <input type="file" name="foto_menu" id="foto_menu" accept="image/*"
@@ -60,109 +60,4 @@
     <div class="col-md-12">
         <button type="submit" class="btn-submit">{{ __('Submit') }}</button>
     </div>
-</div> --}}
-
-
-<div class="row">
-
-    <div class="col-md-12">
-
-        <!-- Nama -->
-        <div class="form-group mb-4">
-
-            <label class="form-label">
-
-                Nama Menu
-
-            </label>
-
-            <input type="text" name="nama_menu" class="form-control @error('nama_menu') is-invalid @enderror"
-                value="{{ old('nama_menu') }}">
-
-            @error('nama_menu')
-                <div class="invalid-feedback">{{ $message }}</div>
-            @enderror
-
-        </div>
-
-        <!-- Harga -->
-        <div class="form-group mb-4">
-
-            <label class="form-label">
-
-                Harga
-
-            </label>
-
-            <input type="number" name="harga" class="form-control @error('harga') is-invalid @enderror"
-                value="{{ old('harga') }}">
-
-            @error('harga')
-                <div class="invalid-feedback">{{ $message }}</div>
-            @enderror
-
-        </div>
-
-        <!-- Stok -->
-        <div class="form-group mb-4">
-
-            <label class="form-label">
-
-                Stok
-
-            </label>
-
-            <input type="number" name="stok" class="form-control @error('stok') is-invalid @enderror"
-                value="{{ old('stok') }}">
-
-            @error('stok')
-                <div class="invalid-feedback">{{ $message }}</div>
-            @enderror
-
-        </div>
-
-        <!-- Foto -->
-        <div class="form-group mb-4">
-
-            <label class="form-label">
-
-                Foto
-
-            </label>
-
-            <input type="file" name="foto_menu" class="form-control">
-
-        </div>
-
-        <!-- Kategori -->
-        <select name="category_id" class="form-select">
-
-            <option value="">
-
-                Pilih Kategori
-
-            </option>
-
-            @foreach ($categories as $category)
-                <option value="{{ $category->id }}">
-
-                    {{ $category->nama_category }}
-
-                </option>
-            @endforeach
-
-        </select>
-
-    </div>
-
-    <div class="col-md-12">
-
-        <button type="submit" class="btn btn-submit">
-
-            Submit
-
-        </button>
-
-    </div>
-
 </div>

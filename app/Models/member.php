@@ -34,5 +34,27 @@ class Member extends Model
      */
     protected $fillable = ['kode_pelanggan', 'nama_pelanggan', 'no_tlp', 'status', 'expired_at'];
 
+    protected static function booted(): void
+{
+    static::creating(function ($member) {
+
+        // Inisial nama member (maksimal 3 huruf)
+        $inisial = collect(explode(' ', trim($member->nama_pelanggan)))
+            ->filter()
+            ->map(fn ($kata) => strtoupper(substr($kata, 0, 1)))
+            ->take(3)
+            ->implode('');
+
+        // Ambil angka pertama dari nomor telepon
+        $angkaDepan = substr(preg_replace('/\D/', '', $member->no_tlp), 0, 1);
+
+        // Tanggal + Jam
+        $tanggalJam = now()->format('dmHis');
+
+        // Kode member
+        $member->kode_pelanggan = $inisial . $angkaDepan . $tanggalJam;
+
+    });
+}
 
 }

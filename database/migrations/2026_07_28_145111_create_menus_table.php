@@ -17,7 +17,7 @@ return new class extends Migration
             $table->string('nama_menu', 150);
             $table->decimal('harga', 10, 2);
             $table->integer('stok');
-            $table->string('foto_menu', 255);
+            $table->string('foto_menu', 255)->nullable();
             $table->foreignId('category_id')->constrained('categories');
             $table->timestamps();
             $table->softDeletes();

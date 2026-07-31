@@ -7,6 +7,8 @@
 @import './dashboard.css';
 @import './table.css';
 @import './form.css';
+@import './filter-popup.css';
+@import './modal.css';
 
 :root {
     

@@ -27,7 +27,7 @@ class Menu extends Model
 {
     use SoftDeletes;
 
-    protected $perPage = 20;
+    protected $perPage = 10;
 
     /**
      * The attributes that are mass assignable.
@@ -44,5 +44,31 @@ class Menu extends Model
     {
         return $this->belongsTo(\App\Models\Category::class, 'category_id', 'id');
     }
-    
+
+    protected static function booted(): void
+    {
+        static::creating(function ($menu) {
+
+            // Inisial nama menu (maksimal 3 huruf)
+            $inisialMenu = collect(explode(' ', trim($menu->nama_menu)))
+                ->filter()
+                ->map(fn($kata) => strtoupper(substr($kata, 0, 1)))
+                ->take(3)
+                ->implode('');
+
+            // Ambil nama category
+            $category = \App\Models\Category::find($menu->category_id);
+
+            // Inisial category (1 huruf)
+            $inisialCategory = $category
+                ? strtoupper(substr($category->nama_category, 0, 1))
+                : '';
+
+            // Tanggal + Jam
+            $tanggalJam = now()->format('dmHis');
+
+            // Kode menu
+            $menu->kode_menu = $inisialMenu . $inisialCategory . $tanggalJam;
+        });
+    }
 }

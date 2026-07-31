@@ -18,6 +18,7 @@ function initFilterWidget(widget) {
     const body = widget.querySelector('[data-filter-body]');
     const resetBtn = widget.querySelector('[data-filter-reset]');
     const applyBtn = widget.querySelector('[data-filter-apply]');
+    const closeBtn = widget.querySelector('[data-filter-close]');
 
     const defaults = captureState(body);
 
@@ -72,6 +73,7 @@ function initFilterWidget(widget) {
     trigger.addEventListener('click', () => {
         popup.hidden ? open() : close();
     });
+    closeBtn?.addEventListener('click', close);
 
     resetBtn.addEventListener('click', () => {
         restoreState(body, defaults);
