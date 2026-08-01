@@ -3,6 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Models\Transaksi;
+use App\Models\PaymentMethod;
+use App\Models\PaymentProvider;
+use App\Models\TransaksiDetail;
+use App\Models\Menu;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use App\Http\Requests\TransaksiRequest;
@@ -14,38 +18,83 @@ class TransaksiController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index(Request $request): View
+    public function index(Request $request)
     {
-        $transaksis = Transaksi::paginate();
+        $query = Transaksi::query();
 
-        return view('transaksi.index', compact('transaksis'))
-            ->with('i', ($request->input('page', 1) - 1) * $transaksis->perPage());
+        $sort = $request->get('sort', 'asc');
+        $status = $request->get('status');
+        $paymentMethod = $request->get('payment_method');
+
+        if ($request->filled('search')) {
+
+            $query->where(function ($q) use ($request) {
+
+                $q->where('kode_transaksi', 'like', '%' . $request->search . '%')
+                    ->orWhere('nama_pelanggan', 'like', '%' . $request->search . '%');
+            });
+        }
+
+        if (!empty($status)) {
+
+            $query->where('status_pesanan', $status);
+        }
+
+        if (!empty($paymentMethod)) {
+
+            $query->where('payment_method_id', $paymentMethod);
+        }
+
+        $transaksis = $query
+            ->orderBy('id', $sort)
+            ->paginate(10);
+
+        $paymentMethods = PaymentMethod::orderBy('nama_payment_method')->get();
+
+        return view('transaksi.index', compact(
+            'transaksis',
+            'paymentMethods',
+            'paymentMethod',
+            'status',
+            'sort'
+        ));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
     public function create(): View
     {
         $transaksi = new Transaksi();
 
-        return view('transaksi.create', compact('transaksi'));
+        $menus = Menu::with('category')
+            ->orderBy('nama_menu')
+            ->get();
+
+        $paymentProviders = PaymentProvider::with('paymentMethod')
+            ->orderBy('payment_method_id')
+            ->orderBy('nama_payment_provider')
+            ->get();
+
+        return view('transaksi.create', compact(
+            'transaksi',
+            'menus',
+            'paymentProviders'
+        ));
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
+
     public function store(TransaksiRequest $request): RedirectResponse
     {
-        Transaksi::create($request->validated());
+        $items = json_decode($request->items, true);
 
-        return Redirect::route('transaksis.index')
-            ->with('success', 'Transaksi created successfully.');
+        $menuIds = collect($items)
+            ->pluck('menu_id');
+
+        $menus = Menu::whereIn('id', $menuIds)
+            ->get()
+            ->keyBy('id');
+
+        dd($items, $menus);
     }
 
-    /**
-     * Display the specified resource.
-     */
     public function show($id): View
     {
         $transaksi = Transaksi::find($id);

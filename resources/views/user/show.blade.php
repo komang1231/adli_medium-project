@@ -1,57 +1,123 @@
 @extends('layouts.app')
 
 @section('template_title')
-    {{ $user->name ?? __('Show') . " " . __('User') }}
+    Detail User
 @endsection
 
 @section('content')
-    <section class="content container-fluid">
-        <div class="row">
-            <div class="col-md-12">
-                <div class="card">
-                    <div class="card-header" style="display: flex; justify-content: space-between; align-items: center;">
-                        <div class="float-left">
-                            <span class="card-title">{{ __('Show') }} User</span>
-                        </div>
-                        <div class="float-right">
-                            <a class="btn btn-primary btn-sm" href="{{ route('users.index') }}"> {{ __('Back') }}</a>
-                        </div>
-                    </div>
+    <div class="content-card">
 
-                    <div class="card-body bg-white">
-                        
-                                <div class="form-group mb-2 mb20">
-                                    <strong>Kode User:</strong>
-                                    {{ $user->kode_user }}
-                                </div>
-                                <div class="form-group mb-2 mb20">
-                                    <strong>Foto Profile:</strong>
-                                    {{ $user->foto_profile }}
-                                </div>
-                                <div class="form-group mb-2 mb20">
-                                    <strong>Nama User:</strong>
-                                    {{ $user->nama_user }}
-                                </div>
-                                <div class="form-group mb-2 mb20">
-                                    <strong>Email:</strong>
-                                    {{ $user->email }}
-                                </div>
-                                <div class="form-group mb-2 mb20">
-                                    <strong>No Tlp:</strong>
-                                    {{ $user->no_tlp }}
-                                </div>
-                                <div class="form-group mb-2 mb20">
-                                    <strong>Role:</strong>
-                                    {{ $user->role }}
-                                </div>
-                                <div class="form-group mb-2 mb20">
-                                    <strong>Status:</strong>
-                                    {{ $user->status }}
-                                </div>
+        <div class="d-flex justify-content-between align-items-center mb-4">
 
-                    </div>
-                </div>
-            </div>
+            <h5>Detail User</h5>
+
+            <a href="{{ route('users.index') }}" class="btn btn-secondary">
+
+                Kembali
+
+            </a>
+
         </div>
-    </section>
+
+        <div class="row">
+
+            <div class="col-lg-4">
+
+                <div class="text-center">
+
+                    @if ($user->foto_profile)
+                        <img src="{{ asset('storage/' . $user->foto_profile) }}" class="rounded-circle border"
+                            style="
+            width:180px;
+            height:180px;
+            object-fit:cover;
+        ">
+                    @else
+                        <img src="{{ asset('assets/icons/topbar/profile.svg') }}" class="rounded-circle border p-3"
+                            style="
+            width:180px;
+            height:180px;
+            object-fit:contain;
+        ">
+                    @endif
+
+                </div>
+
+            </div>
+
+            <div class="col-lg-8">
+
+                <table class="table table-borderless">
+
+                    <tr>
+                        <th width="180">Kode User</th>
+                        <td>{{ $user->kode_user }}</td>
+                    </tr>
+
+                    <tr>
+                        <th>Nama User</th>
+                        <td>{{ $user->nama_user }}</td>
+                    </tr>
+
+                    <tr>
+                        <th>Email</th>
+                        <td>{{ $user->email }}</td>
+                    </tr>
+
+                    <tr>
+                        <th>Nomor HP</th>
+                        <td>{{ $user->no_tlp }}</td>
+                    </tr>
+
+                    <tr>
+                        <th>Role</th>
+                        <td>{{ $user->role }}</td>
+                    </tr>
+
+                    <tr>
+                        <th>Status</th>
+
+                        <td>
+
+                            <form action="{{ route('users.toggleStatus', $user->id) }}" method="POST">
+
+                                @csrf
+                                @method('PATCH')
+
+                                <div class="form-check form-switch">
+
+                                    <input class="form-check-input" type="checkbox" onchange="this.form.submit()"
+                                        {{ $user->status == 'Active' ? 'checked' : '' }}>
+
+                                </div>
+
+                            </form>
+
+                            <small>
+
+                                {{ $user->status }}
+
+                            </small>
+
+                        </td>
+
+                    </tr>
+
+                    <tr>
+                        <th>Dibuat</th>
+                        <td>{{ $user->created_at }}</td>
+                    </tr>
+
+                    <tr>
+                        <th>Diupdate</th>
+                        <td>{{ $user->updated_at }}</td>
+                    </tr>
+
+                </table>
+
+            </div>
+
+        </div>
+
+    </div>
 @endsection

@@ -1,4 +1,4 @@
-@extends('layouts.app')
+{{-- @extends('layouts.app')
 
 @section('template_title')
     {{ __('Create') }} Payment Method
@@ -25,4 +25,4 @@
             </div>
         </div>
     </section>
-@endsection
+@endsection --}}

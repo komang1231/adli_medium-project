@@ -44,6 +44,25 @@
     border-color: var(--error-btn-hapus);
 }
 
+
+.ts-control{
+    border-radius:12px;
+    background: var(--neutral-sidebar);
+    color: var(--white);
+}
+
+.ts-dropdown{
+    background: var(--neutral-sidebar);
+}
+
+.ts-dropdown .option{
+    color: var(--white);
+}
+
+.ts-dropdown .active{
+    background: var(--dark-neutral-sidebar-hover);
+}
+
 .btn-submit {
     background-color: var(--neutral-pagination-active);
     color: var(--white);

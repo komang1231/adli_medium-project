@@ -22,10 +22,9 @@ class MemberRequest extends FormRequest
     public function rules(): array
     {
         return [
-			// 'kode_pelanggan' => 'required|string',
-			'nama_pelanggan' => 'required|string',
-			'no_tlp' => 'required|string',
-			// 'status' => '',
+            'nama_pelanggan' => 'required|string',
+            'no_tlp' => 'required|string',
+            'duration' => 'nullable|string|in:5s,1month,3month,6month,1year',
         ];
     }
 }

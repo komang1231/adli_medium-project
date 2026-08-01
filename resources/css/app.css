@@ -1,6 +1,7 @@
 @import 'bootstrap/dist/css/bootstrap.min.css';
 @import 'bootstrap/dist/css/bootstrap.min.css';
 @import 'bootstrap-icons/font/bootstrap-icons.css';
+@import "tom-select/dist/css/tom-select.bootstrap5.css";
 
 @import './sidebar.css';
 @import './topbar.css';
@@ -9,6 +10,9 @@
 @import './form.css';
 @import './filter-popup.css';
 @import './modal.css';
+@import './show.css';
+@import './transaksi.css';
+@import './profile-offcanvas.css';
 
 :root {
     
@@ -27,9 +31,12 @@
     --sc-pelanggan: #7070B8;
     --sc-transaksi: #5C5CCC;
 
+    --accent-btn-payment: #3B82F6;
+
     --neutral-btn-add: #5555AA;
     --error-btn-trash: #850000;
     --neutral-btn-sort: #C6C6DC;
+    --info-btn-detail: #6C63FF;
     --accent-btn-edit: #F5B83D;
     --error-btn-hapus: #EF4444;
 

@@ -114,6 +114,16 @@
     height: 24px;
 }
 
+/* =========================================================
+   TOPBAR USER DROPDOWN (Profile / Logout)
+   ========================================================= */
+
+.topbar-user-wrapper {
+    position: relative;
+}
+
+/* --- Trigger button (unchanged from existing design) --- */
+
 .topbar-user {
     display: flex;
     align-items: center;
@@ -124,6 +134,7 @@
     border: 0;
     padding: 5px 10px 5px 5px;
     border-radius: 24px 5px 5px 24px;
+    cursor: pointer;
 }
 
 .topbar-user img {
@@ -132,6 +143,7 @@
 }
 
 .topbar-user-info {
+    
     display: flex;
     flex-direction: column;
     align-items: flex-start;
@@ -147,4 +159,80 @@
     color: var(--role-text);
     font-size: 11px;
     font-weight: 500;
+}
+
+/* --- Dropdown panel --- */
+
+.topbar-user-dropdown {
+    position: absolute;
+    top: calc(100% + 8px);
+    right: 0;
+    width: 180px;
+    background-color: var(--neutral-sidebar);
+    border: 1px solid var(--neutral-sidebar-hover);
+    border-radius: 12px;
+    box-shadow: 0 12px 32px rgba(0, 0, 0, 0.35);
+    padding: 6px;
+    z-index: 1000;
+
+    opacity: 0;
+    transform: translateY(-6px);
+    pointer-events: none;
+    transition: opacity 150ms ease-out, transform 150ms ease-out;
+}
+
+.topbar-user-dropdown.is-open {
+    opacity: 1;
+    transform: translateY(0);
+    pointer-events: auto;
+}
+
+.dropdown-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    width: 100%;
+    background: none;
+    border: none;
+    color: var(--white);
+    font-size: 13px;
+    padding: 9px 10px;
+    border-radius: 8px;
+    text-align: left;
+    text-decoration: none;
+    cursor: pointer;
+    transition: background-color 150ms ease;
+}
+
+.dropdown-item:hover {
+    background-color: var(--neutral-sidebar-hover);
+    color: var(--white);
+}
+
+.dropdown-item i {
+    font-size: 15px;
+    color: var(--neutral-text);
+}
+
+.dropdown-item-danger {
+    color: var(--error-btn-hapus);
+}
+
+.dropdown-item-danger i {
+    color: var(--error-btn-hapus);
+}
+
+.dropdown-item-danger:hover {
+    background-color: var(--neutral-sidebar-hover);
+    color: var(--error-btn-hapus);
+}
+
+.dropdown-divider {
+    height: 1px;
+    background-color: var(--neutral-pagination);
+    margin: 4px 2px;
+}
+
+.topbar-user-dropdown form {
+    margin: 0;
 }

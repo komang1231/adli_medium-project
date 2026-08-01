@@ -1,0 +1,20 @@
+.menu-detail-image{
+    width:180px;
+    height:180px;
+    object-fit:cover;
+    border-radius:12px;
+}
+
+.menu-no-image{
+    width:180px;
+    height:180px;
+    border:1px dashed #ccc;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    margin:auto;
+
+    border-radius:12px;
+}

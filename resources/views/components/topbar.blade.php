@@ -35,14 +35,43 @@
         </button>
 
         {{-- Profile --}}
-        <button class="topbar-user" type="button">
+        <div class="topbar-user-wrapper" data-dropdown-widget>
+            <button class="topbar-user" type="button" data-dropdown-trigger aria-haspopup="true" aria-expanded="false">
+                <img src="{{ auth()->user()->foto_profile ? asset('storage/' . auth()->user()->foto_profile) : asset('assets/icons/topbar/profile.svg') }}"
+                    alt="Profile">
+
+                <div class="topbar-user-info">
+                    <span class="topbar-user-name">{{ auth()->user()->nama_user ?? 'Adli' }}</span>
+                    <span class="topbar-user-role">{{ strtoupper(auth()->user()->role ?? 'ADMIN') }}</span>
+                </div>
+            </button>
+
+            <div class="topbar-user-dropdown" data-dropdown-menu hidden>
+                <button type="button" class="dropdown-item" data-bs-toggle="offcanvas"
+                    data-bs-target="#profileOffcanvas">
+                    <i class="bi bi-person"></i>
+                    <span>Profile</span>
+                </button>
+                <div class="dropdown-divider"></div>
+                <form method="POST" action="{{ route('logout') }}">
+                    @csrf
+                    <button type="submit" class="dropdown-item dropdown-item-danger">
+                        <i class="bi bi-box-arrow-right"></i>
+                        <span>Logout</span>
+                    </button>
+                </form>
+            </div>
+        </div>
+
+        @include('profile.profile-offcanvas')
+        {{-- <button class="topbar-user" type="button">
             <img src="{{ asset('assets/icons/topbar/profile.svg') }}" alt="Profile">
 
             <div class="topbar-user-info">
                 <span class="topbar-user-name">Adli</span>
                 <span class="topbar-user-role">ADMIN</span>
             </div>
-        </button>
+        </button> --}}
 
     </div>
 

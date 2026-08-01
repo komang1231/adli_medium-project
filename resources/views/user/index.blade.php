@@ -5,80 +5,292 @@
 @endsection
 
 @section('content')
+    <div class="content-card">
+        <div class="content-card">
 
-    <div class="container-fluid">
-        <div class="row">
-            <div class="col-sm-12">
-                <div class="card">
-                    <div class="card-header">
-                        <div style="display: flex; justify-content: space-between; align-items: center;">
+            @if ($errors->any())
+                <div class="alert alert-danger">
 
-                            <span id="card_title">
-                                {{ __('Users') }}
-                            </span>
+                    {{ $errors->first() }}
 
-                             <div class="float-right">
-                                <a href="{{ route('users.create') }}" class="btn btn-primary btn-sm float-right"  data-placement="left">
-                                  {{ __('Create New') }}
-                                </a>
-                              </div>
-                        </div>
-                    </div>
-                    @if ($message = Session::get('success'))
-                        <div class="alert alert-success m-4">
-                            <p>{{ $message }}</p>
-                        </div>
-                    @endif
-
-                    <div class="card-body bg-white">
-                        <div class="table-responsive">
-                            <table class="table table-striped table-hover">
-                                <thead class="thead">
-                                    <tr>
-                                        <th>No</th>
-                                        
-									<th >Kode User</th>
-									<th >Foto Profile</th>
-									<th >Nama User</th>
-									<th >Email</th>
-									<th >No Tlp</th>
-									<th >Role</th>
-									<th >Status</th>
-
-                                        <th></th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    @foreach ($users as $user)
-                                        <tr>
-                                            <td>{{ ++$i }}</td>
-                                            
-										<td >{{ $user->kode_user }}</td>
-										<td >{{ $user->foto_profile }}</td>
-										<td >{{ $user->nama_user }}</td>
-										<td >{{ $user->email }}</td>
-										<td >{{ $user->no_tlp }}</td>
-										<td >{{ $user->role }}</td>
-										<td >{{ $user->status }}</td>
-
-                                            <td>
-                                                <form action="{{ route('users.destroy', $user->id) }}" method="POST">
-                                                    <a class="btn btn-sm btn-primary " href="{{ route('users.show', $user->id) }}"><i class="fa fa-fw fa-eye"></i> {{ __('Show') }}</a>
-                                                    <a class="btn btn-sm btn-success" href="{{ route('users.edit', $user->id) }}"><i class="fa fa-fw fa-edit"></i> {{ __('Edit') }}</a>
-                                                    @csrf
-                                                    @method('DELETE')
-                                                    <button type="submit" class="btn btn-danger btn-sm" onclick="event.preventDefault(); confirm('Are you sure to delete?') ? this.closest('form').submit() : false;"><i class="fa fa-fw fa-trash"></i> {{ __('Delete') }}</button>
-                                                </form>
-                                            </td>
-                                        </tr>
-                                    @endforeach
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
                 </div>
-                {!! $users->withQueryString()->links() !!}
+            @endif
+
+            @if ($message = Session::get('success'))
+                <div class="alert alert-success">
+
+                    {{ $message }}
+
+                </div>
+            @endif
+
+            @if ($message = Session::get('success'))
+                <div class="alert alert-success">
+                    {{ $message }}
+                </div>
+            @endif
+
+            <div class="d-flex justify-content-between align-items-center mb-4">
+
+                <h5>Data User</h5>
+
             </div>
+
+            <div class="d-flex justify-content-between align-items-center mb-4">
+
+                <div>
+
+                    <button class="btn btn-add me-2" type="button" data-bs-toggle="offcanvas" data-bs-target="#formOffcanvas">
+
+                        <img class="icon" src="{{ asset('assets/icons/table/add.svg') }}" alt="">
+
+                        Add
+
+                    </button>
+
+                    <a href="{{ route('users.trash') }}" class="btn btn-trash">
+
+                        <img class="icon" src="{{ asset('assets/icons/table/trash.svg') }}" alt="">
+
+                        Trash
+
+                    </a>
+
+                </div>
+
+                <div class="d-flex align-items-center">
+
+                    <form action="{{ route('users.index') }}" method="GET" class="d-flex align-items-center">
+
+                        <a href="{{ route('users.index', [
+                            'search' => request('search'),
+                            'sort' => $sort == 'asc' ? 'desc' : 'asc',
+                        ]) }}"
+                            class="sort-btn me-2 px-2 py-2">
+
+                            <img src="{{ asset($sort == 'asc' ? 'assets/icons/table/sort_up.svg' : 'assets/icons/table/sort_down.svg') }}"
+                                alt="Sort">
+
+                        </a>
+
+                        <input type="text" name="search" class="search-box" placeholder="Cari..."
+                            value="{{ request('search') }}">
+
+                        <button type="submit" class="search-icon-btn">
+
+                            <img src="{{ asset('assets/icons/table/search.svg') }}" alt="">
+
+                        </button>
+
+                    </form>
+
+                </div>
+
+            </div>
+
+            <div class="table-responsive">
+
+                <table class="table">
+
+                    <thead>
+
+                        <tr>
+
+                            <th width="70">
+                                No
+                            </th>
+
+                            <th>
+                                Nama
+                            </th>
+
+                            <th>
+                                Email
+                            </th>
+
+                            <th width="120">
+                                Role
+                            </th>
+
+                            <th width="120">
+                                Status
+                            </th>
+
+                            <th class="text-center" width="220">
+                                Aksi
+                            </th>
+
+                        </tr>
+
+                    </thead>
+
+                    <tbody>
+
+                        @forelse($users as $user)
+                            <tr>
+
+                                <td>
+
+                                    {{ $users->firstItem() + $loop->index }}
+
+                                </td>
+
+                                <td>
+
+                                    {{ $user->nama_user }}
+
+                                </td>
+
+                                <td>
+
+                                    {{ $user->email }}
+
+                                </td>
+
+                                <td>
+
+                                    {{ $user->role }}
+
+                                </td>
+
+                                <td>
+
+                                    {{ $user->status }}
+
+                                </td>
+
+                                <td class="text-center">
+
+                                    <a href="{{ route('users.show', $user->id) }}" class="btn-detail me-2">
+
+                                        Detail
+
+                                    </a>
+
+                                    <button type="button" class="btn-edit btn-edit-user"
+                                        data-action="{{ route('users.update', $user->id) }}"
+                                        data-nama="{{ $user->nama_user }}" data-email="{{ $user->email }}"
+                                        data-telp="{{ $user->no_tlp }}"
+                                        data-foto="{{ $user->foto_profile ? asset('storage/' . $user->foto_profile) : '' }}">
+
+                                        Edit
+
+                                    </button>
+
+                                    <form action="{{ route('users.destroy', $user->id) }}" method="POST" class="d-inline">
+
+                                        @csrf
+                                        @method('DELETE')
+
+                                        <button type="submit" class="btn-hapus ms-2"
+                                            onclick="return confirm('Yakin ingin menghapus user ini?')">
+
+                                            Hapus
+
+                                        </button>
+
+                                    </form>
+
+                                </td>
+
+                            </tr>
+
+                        @empty
+
+                            <tr>
+
+                                <td colspan="6" class="text-center">
+
+                                    Belum ada data user.
+
+                                </td>
+
+                            </tr>
+                        @endforelse
+
+                    </tbody>
+
+                </table>
+
+            </div>
+
+            <div class="d-flex justify-content-between align-items-center mt-3">
+
+                <span class="entries-info">
+
+                    Showing {{ $users->firstItem() ?? 0 }}
+
+                    to {{ $users->lastItem() ?? 0 }}
+
+                    of {{ $users->total() }} entries
+
+                </span>
+
+                {{ $users->withQueryString()->links() }}
+
+            </div>
+
         </div>
-    </div>
-@endsection
+
+        {{-- OFFCANVAS CREATE --}}
+        <div class="offcanvas offcanvas-end" tabindex="-1" id="formOffcanvas" aria-labelledby="formOffcanvasLabel">
+
+            <div class="offcanvas-header">
+
+                <span class="offcanvas-title" id="formOffcanvasLabel">
+
+                    Create User
+
+                </span>
+
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="offcanvas">
+                </button>
+
+            </div>
+
+            <div class="offcanvas-body">
+
+                <form action="{{ route('users.store') }}" method="POST" enctype="multipart/form-data">
+
+                    @csrf
+
+                    @include('user.form')
+
+                </form>
+
+            </div>
+
+        </div>
+
+
+        {{-- OFFCANVAS EDIT --}}
+        <div class="offcanvas offcanvas-end" tabindex="-1" id="editUserOffcanvas" aria-labelledby="editUserOffcanvasLabel">
+
+            <div class="offcanvas-header">
+
+                <span class="offcanvas-title" id="editUserOffcanvasLabel">
+
+                    Edit User
+
+                </span>
+
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="offcanvas">
+                </button>
+
+            </div>
+
+            <div class="offcanvas-body">
+
+                <form id="editUserForm" method="POST" enctype="multipart/form-data">
+
+                    @csrf
+                    @method('PUT')
+
+                    @include('user.edit')
+
+                </form>
+
+            </div>
+
+        </div>
+    @endsection

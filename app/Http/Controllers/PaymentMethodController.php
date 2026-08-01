@@ -14,14 +14,27 @@ class PaymentMethodController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index(Request $request): View
+    public function index(Request $request)
     {
-        $paymentMethods = PaymentMethod::paginate();
+        $query = PaymentMethod::query();
 
-        return view('payment-method.index', compact('paymentMethods'))
-            ->with('i', ($request->input('page', 1) - 1) * $paymentMethods->perPage());
+        $sort = $request->get('sort', 'asc');
+
+        if ($request->filled('search')) {
+
+            $query->where('kode_payment_method', 'like', '%' . $request->search . '%')
+                ->orWhere('nama_payment_method', 'like', '%' . $request->search . '%');
+        }
+
+        $paymentMethods = $query
+            ->orderBy('kode_payment_method', $sort)
+            ->paginate(10);
+
+        return view('payment-method.index', compact(
+            'paymentMethods',
+            'sort'
+        ));
     }
-
     /**
      * Show the form for creating a new resource.
      */

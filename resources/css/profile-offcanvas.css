@@ -1,0 +1,150 @@
+/* =========================================================
+   PROFILE OFFCANVAS
+   ========================================================= */
+
+.profile-offcanvas {
+    background-color: var(--bg);
+    color: var(--white);
+    width: 380px;
+}
+
+.profile-offcanvas .offcanvas-header {
+    border-bottom: 1px solid var(--neutral-pagination);
+}
+
+.profile-offcanvas .offcanvas-title {
+    font-weight: 600;
+    font-size: 16px;
+    color: var(--white);
+}
+
+/* ---------- Header: avatar + kode + nama ---------- */
+
+.profile-header {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 28px;
+}
+
+.profile-avatar-wrapper {
+    position: relative;
+}
+
+.profile-avatar {
+    width: 96px;
+    height: 96px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 2px solid var(--neutral-pagination);
+    background-color: #DDDDE9;
+}
+
+.profile-avatar-edit {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    background-color: var(--sc-profile);
+    border: 2px solid var(--bg);
+    color: var(--white);
+    font-size: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+}
+
+.profile-kode {
+    font-size: 11px;
+    color: var(--neutral-text);
+    margin-top: 10px;
+}
+
+.profile-nama {
+    font-size: 16px;
+    font-weight: 600;
+    color: var(--white);
+    margin-top: 2px;
+}
+
+/* ---------- Field list ---------- */
+
+.profile-fields {
+    display: flex;
+    flex-direction: column;
+}
+
+.profile-field {
+    padding: 10px 0;
+    border-bottom: 1px solid var(--neutral-pagination);
+}
+
+.profile-field-last {
+    border-bottom: none;
+}
+
+.profile-field-label {
+    font-size: 11px;
+    color: var(--role-text);
+    margin-bottom: 3px;
+}
+
+.profile-field-value {
+    font-size: 13px;
+    color: var(--white);
+}
+
+/* ---------- Actions ---------- */
+
+.profile-actions {
+    margin-top: 28px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.btn-profile-primary {
+    width: 100%;
+    background-color: var(--neutral-pagination-active);
+    color: var(--white);
+    border: none;
+    border-radius: 8px;
+    padding: 10px;
+    font-size: 13px;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    cursor: pointer;
+    transition: opacity 150ms ease;
+}
+
+.btn-profile-primary:hover {
+    opacity: 0.9;
+    color: var(--white);
+}
+
+.btn-profile-secondary {
+    width: 100%;
+    background-color: transparent;
+    color: var(--neutral-text);
+    border: 1px solid var(--neutral-pagination);
+    border-radius: 8px;
+    padding: 10px;
+    font-size: 13px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    cursor: pointer;
+    transition: border-color 150ms ease, color 150ms ease;
+}
+
+.btn-profile-secondary:hover {
+    border-color: var(--white);
+    color: var(--white);
+}

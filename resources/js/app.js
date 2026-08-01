@@ -1,6 +1,7 @@
 import './bootstrap';
 import 'bootstrap';
 import './sidebar';
+import './profile';
 import './filter-popup';
 import './form_edit';
 import './modal/delete';
@@ -9,3 +10,9 @@ import './modal/action-modal';
 import './modal/restore';
 import './modal/force-delete';  
 import './form_edit_menu';
+import './modal/delete-menu';
+import './tom-select';
+import './form_edit_user';
+import './dashboard/daily-chart';
+import './dashboard/yearly-chart';
+import './transaksi';

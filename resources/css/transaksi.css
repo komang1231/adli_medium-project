@@ -1,0 +1,404 @@
+/* =========================================================
+   POS — HALAMAN TAMBAH TRANSAKSI (KASIR)
+   ========================================================= */
+
+.pos-page {
+    padding-bottom: 40px;
+}
+
+.pos-card {
+    background-color: var(--neutral-sidebar);
+    border-radius: 14px;
+    padding: 20px;
+}
+
+.pos-card-title {
+    font-weight: 500;
+    font-size: 15px;
+    color: var(--white);
+    margin-bottom: 16px;
+}
+
+/* ---------- Shared form field style ---------- */
+
+.pos-page .form-label {
+    color: var(--role-text);
+    font-size: 12px;
+    margin-bottom: 6px;
+}
+
+.pos-page .form-control {
+    background-color: var(--btn-search);
+    border: 1px solid transparent;
+    color: var(--white);
+    border-radius: 8px;
+    padding: 9px 12px;
+    font-size: 13px;
+}
+
+.pos-page .form-control::placeholder {
+    color: var(--neutral-text);
+}
+
+.pos-page .form-control:focus {
+    background-color: var(--btn-search);
+    color: var(--white);
+    border-color: var(--neutral-pagination-active);
+    box-shadow: 0 0 0 0.15rem rgba(108, 99, 255, 0.25);
+}
+
+/* ---------- 1. Informasi Pelanggan ---------- */
+
+.pos-input-wrapper {
+    position: relative;
+}
+
+.pos-input-wrapper .form-control {
+    padding-right: 34px;
+}
+
+.pos-check-icon {
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #639922;
+    font-size: 16px;
+    pointer-events: none;
+}
+
+.pos-badge {
+    display: inline-block;
+    font-size: 11px;
+    font-weight: 500;
+    padding: 4px 10px;
+    border-radius: 999px;
+}
+
+.pos-badge-neutral {
+    background-color: var(--neutral-pagination);
+    color: var(--neutral-text);
+}
+
+.pos-badge-member {
+    background-color: rgba(99, 153, 34, 0.18);
+    color: #97C459;
+}
+
+/* ---------- 2. Payment Provider ---------- */
+
+.pos-payment-group-label {
+    font-size: 11px;
+    color: var(--role-text);
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    margin-bottom: 8px;
+}
+
+.pos-payment-group {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-bottom: 16px;
+}
+
+.pos-payment-group:last-child {
+    margin-bottom: 0;
+}
+
+.pos-provider-btn {
+    background-color: var(--neutral-pagination);
+    color: var(--white);
+    border: none;
+    border-radius: 8px;
+    padding: 8px 16px;
+    font-size: 13px;
+    cursor: pointer;
+    transition: background-color 150ms ease;
+}
+
+.pos-provider-btn:hover {
+    background-color: var(--neutral-sidebar-hover);
+}
+
+.pos-provider-btn.is-active {
+    background-color: var(--neutral-pagination-active);
+    color: var(--white);
+}
+
+/* ---------- 3. Cari Menu ---------- */
+
+.pos-menu-search-card {
+    position: relative;
+}
+
+.pos-search-wrapper {
+    position: relative;
+}
+
+.pos-search-icon {
+    position: absolute;
+    left: 12px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: var(--neutral-text);
+    font-size: 14px;
+    pointer-events: none;
+}
+
+.pos-search-input {
+    padding-left: 34px !important;
+}
+
+.pos-menu-dropdown {
+    margin-top: 8px;
+    background-color: var(--neutral-sidebar-hover);
+    border-radius: 10px;
+    padding: 6px;
+    max-height: 320px;
+    overflow-y: auto;
+}
+
+.pos-menu-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 8px;
+    border-radius: 8px;
+    transition: background-color 150ms ease;
+}
+
+.pos-menu-item:hover {
+    background-color: var(--neutral-sidebar);
+}
+
+.pos-menu-thumb {
+    width: 34px;
+    height: 34px;
+    border-radius: 8px;
+    background-color: var(--sc-transaksi);
+    flex-shrink: 0;
+    object-fit: cover;
+}
+
+.pos-menu-info {
+    flex: 1;
+    min-width: 0;
+}
+
+.pos-menu-name {
+    font-size: 13px;
+    color: var(--white);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.pos-menu-price {
+    font-size: 11px;
+    color: var(--neutral-text);
+}
+
+.pos-menu-add-btn {
+    background-color: var(--sc-profile);
+    color: var(--white);
+    border: none;
+    border-radius: 6px;
+    width: 26px;
+    height: 26px;
+    font-size: 15px;
+    line-height: 1;
+    flex-shrink: 0;
+    cursor: pointer;
+}
+
+.pos-menu-empty {
+    padding: 12px;
+    font-size: 13px;
+    color: var(--neutral-text);
+    text-align: center;
+}
+
+/* ---------- 4. Daftar Pesanan ---------- */
+
+.pos-order-empty {
+    font-size: 13px;
+    color: var(--neutral-text);
+    text-align: center;
+    padding: 20px 0;
+}
+
+.pos-order-category-label {
+    font-size: 11px;
+    color: var(--role-text);
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    margin: 14px 0 8px;
+}
+
+.pos-order-category-label:first-child {
+    margin-top: 0;
+}
+
+.pos-order-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 10px 0;
+    border-bottom: 1px solid var(--neutral-pagination);
+}
+
+.pos-order-item:last-child {
+    border-bottom: none;
+}
+
+.pos-order-info {
+    flex: 1;
+    min-width: 0;
+}
+
+.pos-order-name {
+    font-size: 13px;
+    color: var(--white);
+}
+
+.pos-order-price {
+    font-size: 11px;
+    color: var(--neutral-text);
+}
+
+.pos-qty-control {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.pos-qty-btn {
+    background-color: var(--neutral-pagination);
+    color: var(--white);
+    border: none;
+    border-radius: 6px;
+    width: 22px;
+    height: 22px;
+    font-size: 13px;
+    line-height: 1;
+    cursor: pointer;
+}
+
+.pos-qty-value {
+    font-size: 13px;
+    color: var(--white);
+    min-width: 16px;
+    text-align: center;
+}
+
+.pos-order-subtotal {
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--white);
+    min-width: 80px;
+    text-align: right;
+}
+
+.pos-order-remove {
+    background: none;
+    border: none;
+    color: var(--error-btn-hapus);
+    font-size: 15px;
+    cursor: pointer;
+    padding: 0;
+}
+
+/* ---------- 5. Ringkasan Pembayaran ---------- */
+
+.pos-summary-sticky {
+    position: sticky;
+    top: 16px;
+}
+
+.pos-summary-row {
+    display: flex;
+    justify-content: space-between;
+    font-size: 13px;
+    color: var(--neutral-text);
+    margin-bottom: 10px;
+}
+
+.pos-summary-row span:last-child {
+    color: var(--white);
+}
+
+.pos-summary-discount span:last-child {
+    color: #97C459;
+}
+
+.pos-summary-total {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    border-top: 1px solid var(--neutral-pagination);
+    padding-top: 14px;
+    margin-top: 4px;
+}
+
+.pos-summary-total span:first-child {
+    font-size: 13px;
+    color: var(--role-text);
+}
+
+.pos-summary-total span:last-child {
+    font-size: 22px;
+    font-weight: 600;
+    color: var(--white);
+}
+
+/* ---------- 6. Tombol aksi ---------- */
+
+.btn-pos-primary {
+    display: block;
+    width: 100%;
+    background-color: var(--neutral-pagination-active);
+    color: var(--white);
+    border: none;
+    border-radius: 8px;
+    padding: 11px;
+    font-size: 14px;
+    font-weight: 600;
+    text-align: center;
+    margin-bottom: 8px;
+    cursor: pointer;
+    transition: opacity 150ms ease;
+}
+
+.btn-pos-primary:hover {
+    opacity: 0.9;
+    color: var(--white);
+}
+
+.btn-pos-secondary {
+    display: block;
+    width: 100%;
+    background-color: transparent;
+    color: var(--neutral-text);
+    border: 1px solid var(--neutral-pagination);
+    border-radius: 8px;
+    padding: 10px;
+    font-size: 13px;
+    text-align: center;
+    text-decoration: none;
+    cursor: pointer;
+    transition: border-color 150ms ease, color 150ms ease;
+}
+
+.btn-pos-secondary:hover {
+    border-color: var(--white);
+    color: var(--white);
+}
+
+/* ---------- Responsive: summary stops being sticky on mobile ---------- */
+
+@media (max-width: 991.98px) {
+    .pos-summary-sticky {
+        position: static;
+    }
+}

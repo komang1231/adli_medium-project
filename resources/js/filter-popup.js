@@ -76,22 +76,68 @@ function initFilterWidget(widget) {
     closeBtn?.addEventListener('click', close);
 
     resetBtn.addEventListener('click', () => {
+
         restoreState(body, defaults);
-        refreshDirtyState();
-        close();
+
+        const form = widget.closest('form');
+
+        if (form) {
+
+            Object.keys(defaults).forEach((key) => {
+
+                let input = form.querySelector(`input[type="hidden"][name="${key}"]`);
+
+                if (!input) {
+
+                    input = document.createElement('input');
+                    input.type = 'hidden';
+                    input.name = key;
+
+                    form.appendChild(input);
+
+                }
+
+                input.value = defaults[key];
+
+            });
+
+            form.submit();
+
+        }
+
     });
 
     applyBtn.addEventListener('click', () => {
-        widget.dispatchEvent(
-            new CustomEvent('filter:apply', {
-                bubbles: true,
-                detail: {
-                    state: captureState(body),
-                },
-            })
-        );
 
-        close();
+        const state = captureState(body);
+
+        const form = widget.closest('form');
+
+        if (!form) {
+            close();
+            return;
+        }
+
+        Object.entries(state).forEach(([key, value]) => {
+
+            let input = form.querySelector(`input[type="hidden"][name="${key}"]`);
+
+            if (!input) {
+
+                input = document.createElement('input');
+                input.type = 'hidden';
+                input.name = key;
+
+                form.appendChild(input);
+
+            }
+
+            input.value = value;
+
+        });
+
+        form.submit();
+
     });
 
     body.addEventListener('change', refreshDirtyState);

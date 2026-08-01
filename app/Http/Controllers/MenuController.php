@@ -83,12 +83,24 @@ class MenuController extends Controller
             ->with('success', 'Menu created successfully.');
     }
 
+     public function show($id): View
+    {
+        $menu = Menu::find($id);
+
+        return view('menu.show', compact('menu'));
+    }
+
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Menu $menu)
+    public function edit(Menu $menu): View
     {
-        return response()->json($menu);
+        $categories = Category::orderBy('nama_category')->get();
+
+        return view('menu.edit', compact(
+            'menu',
+            'categories'
+        ));
     }
 
     /**
@@ -127,14 +139,19 @@ class MenuController extends Controller
 
     public function trash(Request $request): View
     {
+
         $search = $request->search;
         $sort = $request->sort ?? 'desc';
 
         $menus = Menu::onlyTrashed()
             ->with('category')
             ->when($search, function ($query) use ($search) {
-                $query->where('kode_menu', 'like', "%{$search}%")
-                    ->orWhere('nama_menu', 'like', "%{$search}%");
+
+                $query->where(function ($q) use ($search) {
+
+                    $q->where('kode_menu', 'like', "%{$search}%")
+                        ->orWhere('nama_menu', 'like', "%{$search}%");
+                });
             })
             ->orderBy('kode_menu', $sort)
             ->paginate(10)

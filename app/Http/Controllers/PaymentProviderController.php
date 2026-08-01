@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\PaymentProvider;
+use App\Models\PaymentMethod;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use App\Http\Requests\PaymentProviderRequest;
@@ -14,12 +15,39 @@ class PaymentProviderController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index(Request $request): View
+    public function index(Request $request)
     {
-        $paymentProviders = PaymentProvider::paginate();
+        $query = PaymentProvider::with('paymentMethod');
 
-        return view('payment-provider.index', compact('paymentProviders'))
-            ->with('i', ($request->input('page', 1) - 1) * $paymentProviders->perPage());
+        $sort = $request->get('sort', 'asc');
+        $paymentMethod = $request->get('payment_method');
+
+        if ($request->filled('search')) {
+
+            $query->where(function ($q) use ($request) {
+
+                $q->where('kode_payment_provider', 'like', '%' . $request->search . '%')
+                    ->orWhere('nama_payment_provider', 'like', '%' . $request->search . '%');
+            });
+        }
+
+        if (!empty($paymentMethod)) {
+
+            $query->where('payment_method_id', $paymentMethod);
+        }
+
+        $paymentProviders = $query
+            ->orderBy('kode_payment_provider', $sort)
+            ->paginate(10);
+
+        $paymentMethods = PaymentMethod::orderBy('nama_payment_method')->get();
+
+        return view('payment-provider.index', compact(
+            'paymentProviders',
+            'paymentMethods',
+            'paymentMethod',
+            'sort'
+        ));
     }
 
     /**

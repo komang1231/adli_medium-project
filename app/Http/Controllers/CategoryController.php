@@ -110,11 +110,13 @@ class CategoryController extends Controller
 
         $categories = Category::onlyTrashed()
             ->when($search, function ($query) use ($search) {
-                $query->where('kode_category', 'like', "%{$search}%")
-                    ->orWhere('nama_category', 'like', "%{$search}%");
+                $query->where(function ($q) use ($search) {
+                    $q->where('kode_category', 'like', "%{$search}%")
+                        ->orWhere('nama_category', 'like', "%{$search}%");
+                });
             })
             ->orderBy('kode_category', $sort)
-            ->paginate(20)
+            ->paginate(10)
             ->withQueryString();
 
         return view('category.trash', compact(

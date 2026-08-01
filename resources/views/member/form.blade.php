@@ -2,29 +2,29 @@
     <div class="col-md-12">
         
         <div class="form-group mb-2 mb20">
-            <label for="kode_pelanggan" class="form-label">{{ __('Kode Pelanggan') }}</label>
-            <input type="text" name="kode_pelanggan" class="form-control @error('kode_pelanggan') is-invalid @enderror" value="{{ old('kode_pelanggan', $member?->kode_pelanggan) }}" id="kode_pelanggan" placeholder="Kode Pelanggan">
-            {!! $errors->first('kode_pelanggan', '<div class="invalid-feedback" role="alert"><strong>:message</strong></div>') !!}
-        </div>
-        <div class="form-group mb-2 mb20">
             <label for="nama_pelanggan" class="form-label">{{ __('Nama Pelanggan') }}</label>
-            <input type="text" name="nama_pelanggan" class="form-control @error('nama_pelanggan') is-invalid @enderror" value="{{ old('nama_pelanggan', $member?->nama_pelanggan) }}" id="nama_pelanggan" placeholder="Nama Pelanggan">
+            <input type="text" name="nama_pelanggan" class="form-control @error('nama_pelanggan') is-invalid @enderror" value="{{ old('nama_pelanggan', $member?->nama_pelanggan) }}" id="nama_pelanggan" placeholder="Nama Pelanggan" required>
             {!! $errors->first('nama_pelanggan', '<div class="invalid-feedback" role="alert"><strong>:message</strong></div>') !!}
         </div>
         <div class="form-group mb-2 mb20">
-            <label for="no_tlp" class="form-label">{{ __('No Tlp') }}</label>
-            <input type="text" name="no_tlp" class="form-control @error('no_tlp') is-invalid @enderror" value="{{ old('no_tlp', $member?->no_tlp) }}" id="no_tlp" placeholder="No Tlp">
+            <label for="no_tlp" class="form-label">{{ __('Nomor Telp') }}</label>
+            <input type="text" name="no_tlp" class="form-control @error('no_tlp') is-invalid @enderror" value="{{ old('no_tlp', $member?->no_tlp) }}" id="no_tlp" placeholder="Nomor Telp" required>
             {!! $errors->first('no_tlp', '<div class="invalid-feedback" role="alert"><strong>:message</strong></div>') !!}
         </div>
         <div class="form-group mb-2 mb20">
-            <label for="status" class="form-label">{{ __('Status') }}</label>
-            <input type="text" name="status" class="form-control @error('status') is-invalid @enderror" value="{{ old('status', $member?->status) }}" id="status" placeholder="Status">
-            {!! $errors->first('status', '<div class="invalid-feedback" role="alert"><strong>:message</strong></div>') !!}
-        </div>
-        <div class="form-group mb-2 mb20">
-            <label for="expired_at" class="form-label">{{ __('Expired At') }}</label>
-            <input type="text" name="expired_at" class="form-control @error('expired_at') is-invalid @enderror" value="{{ old('expired_at', $member?->expired_at) }}" id="expired_at" placeholder="Expired At">
-            {!! $errors->first('expired_at', '<div class="invalid-feedback" role="alert"><strong>:message</strong></div>') !!}
+            <label for="duration" class="form-label">{{ __('Pilih Durasi Member (detik)') }}</label>
+            <select name="duration" id="duration" class="form-select-custom @error('duration') is-invalid @enderror" @if(!$member?->exists) required @endif>
+                <option value="" {{ old('duration') == '' ? 'selected' : '' }}>Pilih lama member</option>
+                <option value="5s" {{ old('duration') == '5s' ? 'selected' : '' }}>5 Detik</option>
+                <option value="1month" {{ old('duration') == '1month' ? 'selected' : '' }}>1 Bulan</option>
+                <option value="3month" {{ old('duration') == '3month' ? 'selected' : '' }}>3 Bulan</option>
+                <option value="6month" {{ old('duration') == '6month' ? 'selected' : '' }}>6 Bulan</option>
+                <option value="1year" {{ old('duration') == '1year' ? 'selected' : '' }}>1 Tahun</option>
+            </select>
+            {!! $errors->first('duration', '<div class="invalid-feedback" role="alert"><strong>:message</strong></div>') !!}
+            @if($member?->exists)
+                <small class="text-muted">Biarkan kosong jika tidak ingin memperpanjang masa berlaku.</small>
+            @endif
         </div>
 
     </div>

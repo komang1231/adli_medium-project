@@ -21,7 +21,7 @@ use Illuminate\Database\Eloquent\Model;
  */
 class PaymentProvider extends Model
 {
-    
+
     protected $perPage = 20;
 
     /**
@@ -39,7 +39,8 @@ class PaymentProvider extends Model
     {
         return $this->belongsTo(\App\Models\PaymentMethod::class, 'payment_method_id', 'id');
     }
-    
+
+
     /**
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
@@ -47,5 +48,4 @@ class PaymentProvider extends Model
     {
         return $this->hasMany(\App\Models\TransferBank::class, 'id', 'payment_provider_id');
     }
-    
 }

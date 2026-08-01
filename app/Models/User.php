@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Foundation\Auth\User as Authenticatable;
 
 /**
  * Class User
@@ -24,9 +25,14 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @package App
  * @mixin \Illuminate\Database\Eloquent\Builder
  */
-class User extends Model
+
+
+
+class User extends Authenticatable
 {
     use SoftDeletes;
+
+    
 
     protected $perPage = 20;
 
@@ -37,6 +43,15 @@ class User extends Model
      */
     protected $fillable = ['kode_user', 'foto_profile', 'nama_user', 'email', 'no_tlp', 'role', 'status', 'password'];
 
+    public function creator()
+    {
+        return $this->belongsTo(User::class, 'created_by');
+    }
+
+    public function createdUsers()
+    {
+        return $this->hasMany(User::class, 'created_by');
+    }
 
     protected static function booted(): void
     {
@@ -51,7 +66,7 @@ class User extends Model
             };
 
             // Inisial nama (maksimal 3 huruf)
-            $inisial = collect(explode(' ', trim($akun->name)))
+            $inisial = collect(explode(' ', trim($akun->nama_user)))
                 ->filter()
                 ->map(fn($kata) => strtoupper(substr($kata, 0, 1)))
                 ->take(3)

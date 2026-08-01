@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('template_title')
-    {{ $member->name ?? __('Show') . " " . __('Member') }}
+    {{ __('Show') }} Member
 @endsection
 
 @section('content')
@@ -19,28 +19,38 @@
                     </div>
 
                     <div class="card-body bg-white">
-                        
-                                <div class="form-group mb-2 mb20">
-                                    <strong>Kode Pelanggan:</strong>
-                                    {{ $member->kode_pelanggan }}
-                                </div>
-                                <div class="form-group mb-2 mb20">
-                                    <strong>Nama Pelanggan:</strong>
-                                    {{ $member->nama_pelanggan }}
-                                </div>
-                                <div class="form-group mb-2 mb20">
-                                    <strong>No Tlp:</strong>
-                                    {{ $member->no_tlp }}
-                                </div>
-                                <div class="form-group mb-2 mb20">
-                                    <strong>Status:</strong>
-                                    {{ $member->status }}
-                                </div>
-                                <div class="form-group mb-2 mb20">
-                                    <strong>Expired At:</strong>
-                                    {{ $member->expired_at }}
-                                </div>
-
+                        <div class="form-group mb-2 mb20">
+                            <strong>Kode Pelanggan:</strong>
+                            {{ $member->kode_pelanggan }}
+                        </div>
+                        <div class="form-group mb-2 mb20">
+                            <strong>Nama Pelanggan:</strong>
+                            {{ $member->nama_pelanggan }}
+                        </div>
+                        <div class="form-group mb-2 mb20">
+                            <strong>Nomor Telp:</strong>
+                            {{ $member->no_tlp }}
+                        </div>
+                        <div class="form-group mb-2 mb20">
+                            <strong>Status:</strong>
+                            {{ $member->expired_status }}
+                        </div>
+                        <div class="form-group mb-2 mb20">
+                            <strong>Expired At:</strong>
+                            {{ $member->expired_at ? $member->expired_at->format('d-m-Y') : '-' }}
+                        </div>
+                        <div class="form-group mb-2 mb20">
+                            <strong>Keterangan:</strong>
+                            @if ($member->expired_at)
+                                @if ($member->expired_status === 'Non-Active')
+                                    Member sudah kadaluarsa pada {{ $member->expired_at->format('d-m-Y') }}.
+                                @else
+                                    Berlaku sampai {{ $member->expired_at->format('d-m-Y') }}.
+                                @endif
+                            @else
+                                Belum ada masa berlaku member.
+                            @endif
+                        </div>
                     </div>
                 </div>
             </div>

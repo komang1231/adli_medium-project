@@ -21,15 +21,26 @@ class UserRequest extends FormRequest
      */
     public function rules(): array
     {
-        return [
-			// 'kode_user' => 'required|string',
-			// 'foto_profile' => 'string',
-			'nama_user' => 'required|string',
-			'email' => 'required|string',
-			'no_tlp' => 'required|string',
-			// 'role' => 'required',
-			// 'status' => 'required',
-            'password' => 'required'
+        $id = $this->route('user')?->id;
+
+        $rules = [
+            'foto_profile' => 'nullable|image|mimes:jpg,jpeg,png,webp|max:2048',
+
+            'nama_user' => 'required|string|max:150',
+
+            'email' => 'required|email|unique:users,email,' . $id,
+
+            'no_tlp' => 'required|string|max:13|unique:users,no_tlp,' . $id,
+
         ];
+
+        if ($this->isMethod('post')) {
+
+            $rules['role'] = 'required|in:Manager,Admin,Staff';
+
+            $rules['password'] = 'required|min:8|confirmed';
+        }
+
+        return $rules;
     }
 }

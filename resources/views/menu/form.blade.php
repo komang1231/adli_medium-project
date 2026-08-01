@@ -68,7 +68,7 @@
     <div class="col-md-12">
 
         <!-- Nama -->
-        <div class="form-group mb-4">
+        <div class="form-group mb-2">
 
             <label class="form-label">
 
@@ -86,7 +86,7 @@
         </div>
 
         <!-- Harga -->
-        <div class="form-group mb-4">
+        <div class="form-group mb-2">
 
             <label class="form-label">
 
@@ -104,7 +104,7 @@
         </div>
 
         <!-- Stok -->
-        <div class="form-group mb-4">
+        <div class="form-group mb-2">
 
             <label class="form-label">
 
@@ -121,21 +121,13 @@
 
         </div>
 
-        <!-- Foto -->
-        <div class="form-group mb-4">
-
-            <label class="form-label">
-
-                Foto
-
-            </label>
-
-            <input type="file" name="foto_menu" class="form-control">
-
-        </div>
-
         <!-- Kategori -->
-        <select name="category_id" class="form-select">
+        <label class="form-label">
+
+            Kategori
+
+        </label>
+        {{-- <select id="category_id" name="category_id" class="form-select mb-2">
 
             <option value="">
 
@@ -151,7 +143,24 @@
                 </option>
             @endforeach
 
-        </select>
+        </select> --}}
+        <x-form.tom-select id="category_id" name="category_id" :options="$categories" valueField="id"
+            labelField="nama_category" placeholder="Pilih Kategori" />
+
+
+        <!-- Foto -->
+        <div class="form-group mb-3">
+
+            <label class="form-label">
+
+                Foto
+
+            </label>
+
+            <input type="file" name="foto_menu" class="form-control">
+
+        </div>
+
 
     </div>
 

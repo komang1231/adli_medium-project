@@ -19,13 +19,13 @@
 
         <div class="d-flex justify-content-between align-items-center mb-4">
             <div>
-                <button class="btn btn-add" type="button" data-bs-toggle="offcanvas" data-bs-target="#formOffcanvas">
+                <a class="btn btn-add me-2" type="button" data-bs-toggle="offcanvas" data-bs-target="#formOffcanvas">
 
                     <img class="icon" src="{{ asset('assets/icons/table/add.svg') }}" alt="">
                     Add
 
-                </button>
-                <a href="{{ route('menu.trash') }}" class="btn btn-trash">
+                </a>
+                <a href="{{ route('menus.trash') }}" class="btn btn-trash">
 
                     <img class="icon" src="{{ asset('assets/icons/table/trash.svg') }}" alt="">
 
@@ -81,12 +81,8 @@
 
                     </x-filter-popup>
 
-                    <input type="text" name="search" class="search-box" placeholder="Cari..."
-                        value="{{ request('search') }}">
 
-                    <button type="submit" class="search-icon-btn">
-                        <img src="{{ asset('assets/icons/table/search.svg') }}" alt="">
-                    </button>
+                    <x-search-bar :route="route('menus.index')" placeholder="Cari..." />
 
                 </form>
             </div>
@@ -101,7 +97,7 @@
                         <th>Nama Menu</th>
                         <th>Harga</th>
                         <th>Stok</th>
-                        <th>Foto Menu</th>
+                        {{-- <th>Foto Menu</th> --}}
                         <th>Kategori</th>
                         <th class="text-center">Aksi</th>
                     </tr>
@@ -114,17 +110,21 @@
                             <td>{{ $menu->nama_menu }}</td>
                             <td>Rp {{ number_format($menu->harga, 0, ',', '.') }}</td>
                             <td>{{ $menu->stok }}</td>
-                            <td>
+                            {{-- <td>
                                 @if ($menu->foto_menu)
                                     <img src="{{ asset('storage/' . $menu->foto_menu) }}" alt="{{ $menu->nama_menu }}"
                                         class="menu-thumb">
                                 @else
                                     <span class="text-muted-cell">-</span>
                                 @endif
-                            </td>
+                            </td> --}}
                             <td>{{ $menu->category->nama_category ?? '-' }}</td>
 
                             <td class="text-center">
+                                <a href="{{ route('menus.show', $menu->id) }}" class="btn-detail btn-detail-menu me-1">
+
+                                    Detail
+                                </a>
                                 <button type="button" class="btn-edit btn-edit-menu"
                                     data-action="{{ route('menus.update', $menu->id) }}"
                                     data-nama="{{ $menu->nama_menu }}" data-harga="{{ $menu->harga }}"
@@ -135,11 +135,17 @@
 
                                 </button>
 
-                                <button type="button" class="btn-hapus btn-delete-menu ms-2" data-id="{{ $menu->id }}"
-                                    data-name="{{ $menu->nama_menu }}"
-                                    data-action="{{ route('menus.destroy', $menu->id) }}">
-                                    Hapus
-                                </button>
+                                <form action="{{ route('menus.destroy', $menu->id) }}" method="POST" class="d-inline">
+                                    @csrf
+                                    @method('DELETE')
+
+                                    <button type="submit" class="btn-hapus"
+                                        onclick="return confirm('Yakin ingin menghapus menu ini?')">
+
+                                        Hapus
+
+                                    </button>
+                                </form>
                             </td>
                         </tr>
                     @empty

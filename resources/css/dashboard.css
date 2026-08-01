@@ -1,41 +1,320 @@
-.invoice-card {
-    border-radius: 14px;
-    padding: 28px 24px;
-    color: #ffffff;
-    min-height: 140px;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.25);
-  }
+/* ===========================================
+   Dashboard Statistic Card
+=========================================== */
 
-  .invoice-card .label {
-    font-size: 0.95rem;
-    opacity: 0.9;
-    margin-bottom: 6px;
-  }
+.dashboard-card{
+    border:0;
+    border-radius:22px;
+    overflow:hidden;
 
-  .invoice-card .value {
-    font-size: 2rem;
-    font-weight: 700;
-  }
+    min-height:145px;
 
-  /* card 1: ungu -> biru */
-  .card-purple {
-    background: linear-gradient(135deg, #8f3ef0 0%, #6c63ff 100%);
-  }
+    position:relative;
 
-  /* card 2: salmon -> pink */
-  .card-pink {
-    background: linear-gradient(135deg, #ff8a8a 0%, #ef2f6a 100%);
-  }
+    color:#fff;
 
-  /* card 3: kuning -> oranye */
-  .card-orange {
-    background: linear-gradient(135deg, #ffc267 0%, #ff7a1a 100%);
-  }
+    transition:.25s ease;
 
-  /* card 4: biru -> indigo */
-  .card-blue {
-    background: linear-gradient(135deg, #4a3bf3 0%, #7c8bff 100%);
-  }
+    box-shadow:0 12px 28px rgba(0,0,0,.18);
+}
+
+.dashboard-card:hover{
+
+    transform:translateY(-6px);
+
+    box-shadow:0 22px 40px rgba(0,0,0,.22);
+
+}
+
+.dashboard-card::before{
+
+    content:"";
+
+    position:absolute;
+
+    width:170px;
+    height:170px;
+
+    right:-55px;
+    top:-55px;
+
+    border-radius:50%;
+
+    background:rgba(255,255,255,.08);
+
+}
+
+.dashboard-card::after{
+
+    content:"";
+
+    position:absolute;
+
+    width:90px;
+    height:90px;
+
+    right:28px;
+    top:22px;
+
+    border-radius:50%;
+
+    background:rgba(255,255,255,.05);
+
+}
+
+.dashboard-card .card-body{
+
+    position:relative;
+
+    z-index:2;
+
+    padding:24px;
+
+    display:flex;
+
+    flex-direction:column;
+
+    justify-content:center;
+
+}
+
+.dashboard-card h6{
+
+    font-size:.95rem;
+
+    font-weight:500;
+
+    color:rgba(255,255,255,.85);
+
+    margin-bottom:10px;
+
+}
+
+.dashboard-card h2{
+
+    font-size:2rem;
+
+    font-weight:700;
+
+    color:#fff;
+
+    margin:0;
+
+}
+
+/* ==============================
+   Gradient
+============================== */
+
+.dashboard-card-1{
+
+    background:linear-gradient(135deg,#6B5CFF,#8B7EFF);
+
+}
+
+.dashboard-card-2{
+
+    background:linear-gradient(135deg,#FF6B8A,#FF4D6D);
+
+}
+
+.dashboard-card-3{
+
+    background:linear-gradient(135deg,#FFB84D,#FF922B);
+
+}
+
+.dashboard-card-4{
+
+    background:linear-gradient(135deg,#4E6BFF,#7D92FF);
+
+}
+
+/* ===========================================
+   Chart
+=========================================== */
+
+#dailyChart,
+#yearlyChart{
+    min-height:420px;
+}
+
+.apexcharts-toolbar{
+    display:none!important;
+}
+
+.apexcharts-legend{
+    padding-top:20px!important;
+}
+
+.apexcharts-xaxis-label,
+.apexcharts-yaxis-label{
+    font-size:13px!important;
+}
+
+/* ===========================================
+   Chart Card
+=========================================== */
+
+.dashboard-chart-card{
+
+    background:var(--neutral-sidebar);
+
+    border:none;
+
+    border-radius:22px;
+
+    overflow:hidden;
+
+    box-shadow:0 12px 30px rgba(0,0,0,.20);
+
+}
+
+.dashboard-chart-card .card-header{
+
+    background:transparent;
+
+    border-bottom:1px solid rgba(255,255,255,.08)!important;
+
+    padding:22px 28px;
+
+}
+
+.dashboard-chart-card .card-body{
+
+    padding:28px;
+
+    background:transparent;
+
+}
+
+.dashboard-chart-card h5{
+
+    color:#fff;
+
+    font-weight:700;
+
+    margin-bottom:4px;
+
+}
+
+.dashboard-chart-card small{
+
+    color:rgba(255,255,255,.65);
+
+}
+
+/* ===========================================
+   Button
+=========================================== */
+
+.dashboard-chart-card .btn{
+
+    width:42px;
+
+    height:42px;
+
+    border-radius:12px;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+}
+
+.dashboard-chart-card .btn-light{
+
+    background:rgba(255,255,255,.08);
+
+    border:1px solid rgba(255,255,255,.10);
+
+    color:#fff;
+
+}
+
+.dashboard-chart-card .btn-light:hover{
+
+    background:rgba(255,255,255,.15);
+
+}
+
+/* ===========================================
+   Form
+=========================================== */
+
+.dashboard-chart-card .form-control,
+.dashboard-chart-card .form-select{
+
+    min-width:135px;
+
+    background:rgba(255,255,255,.08);
+
+    color:#fff;
+
+    border:1px solid rgba(255,255,255,.12);
+
+    border-radius:12px;
+
+}
+
+.dashboard-chart-card .form-control:focus,
+.dashboard-chart-card .form-select:focus{
+
+    background:rgba(255,255,255,.12);
+
+    border-color:rgba(255,255,255,.25);
+
+    color:#fff;
+
+    box-shadow:none;
+
+}
+
+.dashboard-chart-card option{
+
+    background:#10102D;
+
+    color:#fff;
+
+}
+
+.dashboard-chart-card input[type="date"]{
+
+    color-scheme:dark;
+
+}
+
+/* ===========================================
+   Apex
+=========================================== */
+
+.apexcharts-text{
+
+    fill:#D9D9E3!important;
+
+}
+
+.apexcharts-gridline{
+
+    stroke:rgba(255,255,255,.08)!important;
+
+}
+
+.apexcharts-xcrosshairs,
+.apexcharts-ycrosshairs{
+
+    fill:transparent!important;
+
+}
+
+.apexcharts-tooltip{
+
+    background:#1C1C46!important;
+
+    color:#fff!important;
+
+    border:none!important;
+
+}

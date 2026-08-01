@@ -1,105 +1,219 @@
 @extends('layouts.app')
 
 @section('template_title')
-    Transaksis
+    Transaksi
 @endsection
 
 @section('content')
-    <div class="container-fluid">
-        <div class="row">
-            <div class="col-sm-12">
-                <div class="card">
-                    <div class="card-header">
-                        <div style="display: flex; justify-content: space-between; align-items: center;">
+    <div class="content-card">
 
-                            <span id="card_title">
-                                {{ __('Transaksis') }}
-                            </span>
-
-                             <div class="float-right">
-                                <a href="{{ route('transaksis.create') }}" class="btn btn-primary btn-sm float-right"  data-placement="left">
-                                  {{ __('Create New') }}
-                                </a>
-                              </div>
-                        </div>
-                    </div>
-                    @if ($message = Session::get('success'))
-                        <div class="alert alert-success m-4">
-                            <p>{{ $message }}</p>
-                        </div>
-                    @endif
-
-                    <div class="card-body bg-white">
-                        <div class="table-responsive">
-                            <table class="table table-striped table-hover">
-                                <thead class="thead">
-                                    <tr>
-                                        <th>No</th>
-                                        
-									<th >Kode Transaksi</th>
-									<th >Status Pesanan</th>
-									<th >Member Id</th>
-									<th >Tipe Pelanggan</th>
-									<th >Nama Pelanggan</th>
-									<th >No Tlp</th>
-									<th >Payment Method Id</th>
-									<th >Payment Provider Id</th>
-									<th >Transfer Bank Id</th>
-									<th >Ppn</th>
-									<th >Harga Ppn</th>
-									<th >Service Charge</th>
-									<th >Harga Service Charge</th>
-									<th >Diskon Member</th>
-									<th >Harga Diskon Member</th>
-									<th >Grand Total</th>
-									<th >User Id</th>
-									<th >Paid At</th>
-
-                                        <th></th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    @foreach ($transaksis as $transaksi)
-                                        <tr>
-                                            <td>{{ ++$i }}</td>
-                                            
-										<td >{{ $transaksi->kode_transaksi }}</td>
-										<td >{{ $transaksi->status_pesanan }}</td>
-										<td >{{ $transaksi->member_id }}</td>
-										<td >{{ $transaksi->tipe_pelanggan }}</td>
-										<td >{{ $transaksi->nama_pelanggan }}</td>
-										<td >{{ $transaksi->no_tlp }}</td>
-										<td >{{ $transaksi->payment_method_id }}</td>
-										<td >{{ $transaksi->payment_provider_id }}</td>
-										<td >{{ $transaksi->transfer_bank_id }}</td>
-										<td >{{ $transaksi->ppn }}</td>
-										<td >{{ $transaksi->harga_ppn }}</td>
-										<td >{{ $transaksi->service_charge }}</td>
-										<td >{{ $transaksi->harga_service_charge }}</td>
-										<td >{{ $transaksi->diskon_member }}</td>
-										<td >{{ $transaksi->harga_diskon_member }}</td>
-										<td >{{ $transaksi->grand_total }}</td>
-										<td >{{ $transaksi->user_id }}</td>
-										<td >{{ $transaksi->paid_at }}</td>
-
-                                            <td>
-                                                <form action="{{ route('transaksis.destroy', $transaksi->id) }}" method="POST">
-                                                    <a class="btn btn-sm btn-primary " href="{{ route('transaksis.show', $transaksi->id) }}"><i class="fa fa-fw fa-eye"></i> {{ __('Show') }}</a>
-                                                    <a class="btn btn-sm btn-success" href="{{ route('transaksis.edit', $transaksi->id) }}"><i class="fa fa-fw fa-edit"></i> {{ __('Edit') }}</a>
-                                                    @csrf
-                                                    @method('DELETE')
-                                                    <button type="submit" class="btn btn-danger btn-sm" onclick="event.preventDefault(); confirm('Are you sure to delete?') ? this.closest('form').submit() : false;"><i class="fa fa-fw fa-trash"></i> {{ __('Delete') }}</button>
-                                                </form>
-                                            </td>
-                                        </tr>
-                                    @endforeach
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-                </div>
-                {!! $transaksis->withQueryString()->links() !!}
+        @if ($message = Session::get('success'))
+            <div class="alert alert-success">
+                <p>{{ $message }}</p>
             </div>
+        @endif
+
+        <div class="d-flex justify-content-between align-items-center mb-4">
+
+            <h5>Data Transaksi</h5>
+
         </div>
+
+        <div class="d-flex justify-content-between align-items-center mb-4">
+
+            <div>
+
+                <a href="{{ route('transaksis.create') }}" class="btn btn-add me-2">
+
+                    <img class="icon" src="{{ asset('assets/icons/table/add.svg') }}" alt="">
+
+                    Add
+
+                </a>
+
+                <a href="{{ route('transaksis.trash') }}" class="btn btn-trash">
+
+                    <img class="icon" src="{{ asset('assets/icons/table/trash.svg') }}" alt="">
+
+                    Trash
+
+                </a>
+
+            </div>
+
+            <div class="d-flex align-items-center">
+
+                <form action="{{ route('transaksis.index') }}" method="GET" class="d-flex align-items-center">
+
+                    <a href="{{ route('transaksis.index', [
+                        'search' => request('search'),
+                        'status' => request('status'),
+                        'payment_method' => request('payment_method'),
+                        'sort' => $sort == 'asc' ? 'desc' : 'asc',
+                    ]) }}"
+                        class="sort-btn me-2 px-2 py-2">
+
+                        <img
+                            src="{{ asset($sort == 'asc' ? 'assets/icons/table/sort_up.svg' : 'assets/icons/table/sort_down.svg') }}">
+
+                    </a>
+
+                    <x-filter-popup id="transaksi-filter">
+
+                        <x-filter-section label="Status" filter-key="status">
+
+                            <x-filter-radio name="status" value="" :checked="$status == ''">
+
+                                Semua
+
+                            </x-filter-radio>
+
+                            <x-filter-radio name="status" value="paid" :checked="$status == 'paid'">
+
+                                Paid
+
+                            </x-filter-radio>
+
+                            <x-filter-radio name="status" value="unpaid" :checked="$status == 'unpaid'">
+
+                                Unpaid
+
+                            </x-filter-radio>
+
+                        </x-filter-section>
+
+                        <x-filter-section label="Payment Method" filter-key="payment_method">
+
+                            <x-filter-radio name="payment_method" value="" :checked="$paymentMethod == ''">
+
+                                Semua
+
+                            </x-filter-radio>
+
+                            @foreach ($paymentMethods as $method)
+                                <x-filter-radio name="payment_method" value="{{ $method->id }}" :checked="$paymentMethod == $method->id">
+
+                                    {{ $method->nama_payment_method }}
+
+                                </x-filter-radio>
+                            @endforeach
+
+                        </x-filter-section>
+
+                    </x-filter-popup>
+
+                    <input type="text" name="search" class="search-box" placeholder="Cari..."
+                        value="{{ request('search') }}">
+
+                    <button type="submit" class="search-icon-btn">
+
+                        <img src="{{ asset('assets/icons/table/search.svg') }}" alt="">
+
+                    </button>
+
+                </form>
+
+            </div>
+
+        </div>
+
+        <div class="table-responsive">
+
+            <table class="table">
+
+                <thead>
+
+                    <tr>
+
+                        <th width="70">No</th>
+
+                        <th width="180">Kode</th>
+
+                        <th width="150">Tipe</th>
+
+                        <th width="180">Payment</th>
+
+                        <th>Total</th>
+
+                        <th width="180">Tanggal</th>
+
+                        <th class="text-center">Aksi</th>
+
+                    </tr>
+
+                </thead>
+
+                <tbody>
+
+                    @forelse($transaksis as $transaksi)
+                        <tr>
+
+                            <td>{{ $transaksis->firstItem() + $loop->index }}</td>
+
+                            <td>{{ $transaksi->kode_transaksi }}</td>
+
+                            <td>{{ $transaksi->tipe_pelanggan }}</td>
+
+                            <td>{{ $transaksi->paymentMethod->nama_payment_method }}</td>
+
+                            <td>
+                                Rp {{ number_format($transaksi->grand_total, 0, ',', '.') }}
+                            </td>
+
+                            <td>
+                                {{ $transaksi->created_at->translatedFormat('d F Y') }}
+                            </td>
+
+                            <td class="text-center">
+
+                                <a href="{{ route('transaksis.show', $transaksi->id) }}" class="btn-edit">
+
+                                    Detail
+
+                                </a>
+
+                                <button type="button" class="btn-hapus ms-2">
+
+                                    Hapus
+
+                                </button>
+
+                            </td>
+
+                        </tr>
+
+                    @empty
+
+                        <tr>
+
+                            <td colspan="7" class="text-center">
+
+                                Belum ada data transaksi.
+
+                            </td>
+
+                        </tr>
+                    @endforelse
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+        <div class="d-flex justify-content-between align-items-center mt-3">
+
+            <span class="entries-info">
+
+                Showing {{ $transaksis->firstItem() ?? 0 }}
+                to {{ $transaksis->lastItem() ?? 0 }}
+                of {{ $transaksis->total() }} entries
+
+            </span>
+
+            {{ $transaksis->withQueryString()->links() }}
+
+        </div>
+
     </div>
 @endsection
