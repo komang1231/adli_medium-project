@@ -5,7 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\Transaksi;
 use App\Models\PaymentMethod;
 use App\Models\PaymentProvider;
-use App\Models\TransaksiDetail;
+use Illuminate\Support\Facades\DB;
+use App\Models\Detail_Transaksi;
 use App\Models\Menu;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -83,16 +84,107 @@ class TransaksiController extends Controller
 
     public function store(TransaksiRequest $request): RedirectResponse
     {
-        $items = json_decode($request->items, true);
+        DB::beginTransaction();
 
-        $menuIds = collect($items)
-            ->pluck('menu_id');
+        try {
 
-        $menus = Menu::whereIn('id', $menuIds)
-            ->get()
-            ->keyBy('id');
+            $items = json_decode($request->items, true);
 
-        dd($items, $menus);
+            $provider = PaymentProvider::with('paymentMethod')
+                ->findOrFail($request->payment_provider_id);
+
+            $menus = Menu::whereIn(
+                'id',
+                collect($items)->pluck('menu_id')
+            )->get()->keyBy('id');
+
+            $subtotal = 0;
+
+            foreach ($items as &$item) {
+
+                $menu = $menus[$item['menu_id']];
+
+                $item['harga'] = $menu->harga;
+                $item['subtotal'] = $menu->harga * $item['qty'];
+
+                $subtotal += $item['subtotal'];
+            }
+
+            $isMember = $request->is_member == 1;
+
+            $diskon = $isMember ? $subtotal * 0.10 : 0;
+
+            $service = 2000;
+
+            $ppn = ($subtotal - $diskon + $service) * 0.11;
+
+            $grandTotal = ($subtotal - $diskon) + $service + $ppn;
+
+            $transaksi = Transaksi::create([
+
+                'status_pesanan' => 'paid',
+
+                'members_id' => $request->customer_id ?: null,
+
+                'tipe_pelanggan' => $isMember ? 'Member' : 'Non-Member',
+
+                'nama_pelanggan' => $request->nama_pelanggan,
+
+                'no_tlp' => $request->no_tlp,
+
+                'payment_method_id' => $provider->payment_method_id,
+
+                'payment_provider_id' => $provider->id,
+
+                'ppn' => 11,
+
+                'harga_ppn' => $ppn,
+
+                'service_charge' => 10,
+                'harga_service_charge' => $service,
+
+                'member_discount' => $isMember ? 10 : 0,
+
+                'harga_member_discount' => $diskon,
+
+                'grand_total' => $grandTotal,
+
+                'user_id' => auth()->id(),
+
+            ]);
+
+            foreach ($items as $item) {
+
+                Detail_Transaksi::create([
+
+                    'transaksi_id' => $transaksi->id,
+
+                    'menu_id' => $item['menu_id'],
+
+                    'jumlah' => $item['qty'],
+
+                    'harga_satuan' => $item['harga'],
+
+                    'subtotal_harga' => $item['subtotal'],
+
+                ]);
+
+                $menu = $menus[$item['menu_id']];
+
+                $menu->decrement('stok', $item['qty']);
+            }
+
+            DB::commit();
+
+            return redirect()
+                ->route('transaksis.index')
+                ->with('success', 'Transaksi berhasil dibuat.');
+        } catch (\Throwable $e) {
+
+            DB::rollBack();
+
+            throw $e;
+        }
     }
 
     public function show($id): View

@@ -133,7 +133,7 @@ document.addEventListener('DOMContentLoaded', () => {
         selectedCustomerId = member.id;
         isMember = true;
 
-        nameInput.value = member.nama_member;
+        nameInput.value = member.nama_pelanggan;
         phoneInput.value = member.no_tlp;
 
         nameCheck.hidden = false;

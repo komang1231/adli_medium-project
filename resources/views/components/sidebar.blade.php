@@ -65,16 +65,6 @@
                 <span class="menu-name">Payment</span>
             </a>
         @endif
-
-
-        <form action="{{ route('logout') }}" method="POST">
-            @csrf
-
-            <button type="submit" class="dropdown-item">
-                Logout
-            </button>
-        </form>
-
     </nav>
 
 </aside>

@@ -11,18 +11,23 @@
     <div class="topbar-actions">
 
         {{-- Transaksi --}}
-        <button class="topbar-action topbar-transaction" type="button">
+        <a href="{{ route('transaksis.create') }}" class="topbar-action topbar-transaction" type="button">
             <img class="add" src="{{ asset('assets/icons/topbar/add.svg') }}" alt="">
             <span>Transaksi</span>
             <img class="icon" src="{{ asset('assets/icons/topbar/transaksi.svg') }}" alt="">
-        </button>
+        </a>
 
         {{-- Pelanggan --}}
-        <button class="topbar-action topbar-customer" type="button">
+        <button href="{{ route('members.create') }}" class="topbar-action topbar-customer" type="button"
+            data-bs-toggle="offcanvas" data-bs-target="#formOffcanvas">
             <img class="add" src="{{ asset('assets/icons/topbar/add.svg') }}" alt="">
             <span>Pelanggan</span>
             <img class="icon" src="{{ asset('assets/icons/topbar/pelanggan.svg') }}" alt="">
         </button>
+        {{-- <button class="btn btn-add me-2" type="button" data-bs-toggle="offcanvas" data-bs-target="#formOffcanvas">
+            <img class="icon" src="{{ asset('assets/icons/table/add.svg') }}" alt="">
+            Add
+        </button> --}}
 
     </div>
 
@@ -74,5 +79,21 @@
         </button> --}}
 
     </div>
+    {{-- OFF CANVAS CREATE --}}
+    {{-- <div class="offcanvas offcanvas-end" tabindex="-1" id="formOffcanvas" aria-labelledby="formOffcanvasLabel">
+        <div class="offcanvas-header">
+            <span class="offcanvas-title" id="formOffcanvasLabel">Create Member</span>
+            <button type="button" class="btn-close btn-close-white" data-bs-dismiss="offcanvas"
+                aria-label="Close"></button>
+        </div>
+        <div class="offcanvas-body">
+            <form method="POST" action="{{ route('members.store') }}" role="form" enctype="multipart/form-data">
+                @csrf
+
+                @include('member.form')
+
+            </form>
+        </div>
+    </div> --}}
 
 </header>
