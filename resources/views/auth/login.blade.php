@@ -19,7 +19,7 @@
 
         <div class="login-brand">
             <img src="{{ asset('assets/icons/logo/logo.svg') }}" alt="POS Coffee Shop">
-            <span>Login</span>
+            {{-- <span>Login</span> --}}
         </div>
 
         <hr class="login-divider">
@@ -53,7 +53,7 @@
                 @enderror
             </div>
 
-            <div class="login-options">
+            {{-- <div class="login-options">
                 <div class="form-check">
                     <input type="checkbox" name="remember" id="remember" class="form-check-input">
                     <label for="remember" class="form-check-label">{{ __('Ingat saya') }}</label>
@@ -62,9 +62,9 @@
                 @if (Route::has('password.request'))
                     <a href="{{ route('password.request') }}" class="login-forgot">{{ __('Lupa password?') }}</a>
                 @endif
-            </div>
+            </div> --}}
 
-            <button type="submit" class="btn-login">{{ __('Login') }}</button>
+            <button type="submit" class="btn-login mt-3">{{ __('Login') }}</button>
 
         </form>
 

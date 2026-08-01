@@ -32,6 +32,9 @@ class MemberController extends Controller
                 });
         }
 
+        // Sorting: default by name ascending, toggle with ?sort=asc|desc
+        $sort = $request->input('sort', 'asc');
+        $query->orderBy('nama_pelanggan', $sort);
         if ($request->filled('search')) {
             $query->where(function ($subQuery) use ($request) {
                 $subQuery->where('nama_pelanggan', 'like', '%' . $request->input('search') . '%')
@@ -43,7 +46,7 @@ class MemberController extends Controller
         $members = $query->paginate();
         $member = new Member();
 
-        return view('member.index', compact('members', 'member'))
+        return view('member.index', compact('members', 'member', 'sort'))
             ->with('i', ($request->input('page', 1) - 1) * $members->perPage());
     }
 
@@ -143,12 +146,11 @@ class MemberController extends Controller
 
     public function check(Request $request)
     {
-        $member = Member::where('nama_member', $request->keyword)
+        $member = Member::where('nama_pelanggan', $request->keyword)
             ->orWhere('no_tlp', $request->keyword)
             ->first();
 
         if (!$member) {
-
             return response()->json([
                 'success' => false
             ]);

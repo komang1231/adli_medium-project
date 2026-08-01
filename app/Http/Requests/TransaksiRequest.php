@@ -27,14 +27,14 @@ class TransaksiRequest extends FormRequest
 			// 'tipe_pelanggan' => 'required',
 			'nama_pelanggan' => 'required|string',
 			'no_tlp' => 'required|string',
-			'payment_method_id' => 'required',
+			// 'payment_method_id' => 'required',
 			'payment_provider_id' => 'required',
-			'ppn' => 'required',
-			'harga_ppn' => 'required',
-			'service_charge' => 'required',
-			'harga_service_charge' => 'required',
-			'grand_total' => 'required',
-			'user_id' => 'required',
+			// 'ppn' => 'required',
+			// 'harga_ppn' => 'required',
+			// 'service_charge' => 'required',
+			// 'harga_service_charge' => 'required',
+			// 'grand_total' => 'required',
+			// 'user_id' => 'required',
         ];
     }
 }

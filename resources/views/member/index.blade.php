@@ -44,6 +44,18 @@
                     @if(request('expired'))
                         <input type="hidden" name="expired" value="1">
                     @endif
+
+                    <a href="{{ route('members.index', [
+                        'search' => request('search'),
+                        'expired' => request('expired'),
+                        'sort' => $sort == 'asc' ? 'desc' : 'asc',
+                    ]) }}" class="sort-btn me-2 px-2 py-2">
+
+                        <img src="{{ asset($sort == 'asc' ? 'assets/icons/table/sort_up.svg' : 'assets/icons/table/sort_down.svg') }}"
+                            alt="Sort">
+
+                    </a>
+
                     <input type="text" name="search" class="search-box" placeholder="Cari..." value="{{ request('search') }}">
                     <button type="submit" class="search-icon-btn">
                         <img src="{{ asset('assets/icons/table/search.svg') }}" alt="">
