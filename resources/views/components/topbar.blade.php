@@ -46,7 +46,7 @@
                     alt="Profile">
 
                 <div class="topbar-user-info">
-                    <span class="topbar-user-name">{{ auth()->user()->nama_user ?? 'Adli' }}</span>
+                    <span class="topbar-user-name">{{ explode(' ', auth()->user()->nama_user ?? 'Adli')[0] }}</span>
                     <span class="topbar-user-role">{{ strtoupper(auth()->user()->role ?? 'ADMIN') }}</span>
                 </div>
             </button>

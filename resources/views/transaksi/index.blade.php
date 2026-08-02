@@ -31,13 +31,13 @@
 
                 </a>
 
-                <a href="{{ route('transaksis.trash') }}" class="btn btn-trash">
+                {{-- <a href="{{ route('transaksis.trash') }}" class="btn btn-trash">
 
                     <img class="icon" src="{{ asset('assets/icons/table/trash.svg') }}" alt="">
 
                     Trash
 
-                </a>
+                </a> --}}
 
             </div>
 
@@ -127,11 +127,11 @@
 
                         <th width="70">No</th>
 
-                        <th width="180">Kode</th>
+                        <th width="190">Kode</th>
 
-                        <th width="150">Tipe</th>
+                        <th width="120">Tipe</th>
 
-                        <th width="180">Payment</th>
+                        <th width="120">Payment</th>
 
                         <th>Total</th>
 
@@ -166,17 +166,17 @@
 
                             <td class="text-center">
 
-                                <a href="{{ route('transaksis.show', $transaksi->id) }}" class="btn-edit">
+                                <a href="{{ route('transaksis.show', $transaksi->id) }}" class="btn-detail">
 
                                     Detail
 
                                 </a>
 
-                                <button type="button" class="btn-hapus ms-2">
+                                {{-- <button type="button" class="btn-hapus ms-2">
 
                                     Hapus
 
-                                </button>
+                                </button> --}}
 
                             </td>
 

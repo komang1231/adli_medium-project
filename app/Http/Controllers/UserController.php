@@ -17,6 +17,10 @@ class UserController extends Controller
     {
         $search = $request->search;
         $sort = $request->sort ?? 'asc';
+        $status = $request->status;
+        $role = $request->role;
+
+
 
         $users = User::when($search, function ($query) use ($search) {
 
@@ -28,11 +32,22 @@ class UserController extends Controller
             ->orderBy('nama_user', $sort)
             ->paginate(10)
             ->withQueryString();
+        if (!empty($status)) {
+
+            $users->where('status_pesanan', $status);
+        }
+
+        if (!empty($role)) {
+
+            $users->where('role', $role);
+        }
 
         return view('user.index', compact(
             'users',
             'search',
-            'sort'
+            'sort',
+            'status',
+            'role'
         ));
     }
 

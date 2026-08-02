@@ -128,7 +128,7 @@
 .topbar-user {
     display: flex;
     align-items: center;
-    width: 120px;
+    width: 130px;
     gap: 20px;
 
     background-color: var(--sc-profile);

@@ -72,6 +72,23 @@
                                 alt="Sort">
 
                         </a>
+                        <x-filter-popup id="user-filter">
+                            <x-filter-section label="Status" filter-key="status">
+                                <x-filter-radio name="status" value="" :checked="$status == ''">
+
+                                    Semua
+
+                                </x-filter-radio>
+                                <x-filter-radio name="status" value="Active" :checked="$status == 'Active'">Active</x-filter-radio>
+                                <x-filter-radio name="status" value="Non-Active"
+                                    :checked="$status == 'Non-Active'">Non-Active</x-filter-radio>
+                            </x-filter-section>
+                            <x-filter-section label="Role" filter-key="role">
+                                <x-filter-radio name="role" value="Admin" :checked="$role == 'Admin'">Admin</x-filter-radio>
+                                <x-filter-radio name="role" value="Manager" :checked="$role == 'Manager'">Manager</x-filter-radio>
+                                <x-filter-radio name="role" value="Staff" :checked="$role == 'Staff'">Staff</x-filter-radio>
+                            </x-filter-section>
+                        </x-filter-popup>
 
                         <input type="text" name="search" class="search-box" placeholder="Cari..."
                             value="{{ request('search') }}">
@@ -264,7 +281,8 @@
 
 
         {{-- OFFCANVAS EDIT --}}
-        <div class="offcanvas offcanvas-end" tabindex="-1" id="editUserOffcanvas" aria-labelledby="editUserOffcanvasLabel">
+        <div class="offcanvas offcanvas-end" tabindex="-1" id="editUserOffcanvas"
+            aria-labelledby="editUserOffcanvasLabel">
 
             <div class="offcanvas-header">
 
