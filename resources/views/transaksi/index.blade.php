@@ -7,6 +7,13 @@
 @section('content')
     <div class="content-card">
 
+        @if ($errors->any())
+            <div class="alert alert-danger">
+
+                {{ $errors->first() }}
+
+            </div>
+        @endif
         @if ($message = Session::get('success'))
             <div class="alert alert-success">
                 <p>{{ $message }}</p>

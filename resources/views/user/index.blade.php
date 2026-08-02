@@ -24,12 +24,6 @@
                 </div>
             @endif
 
-            @if ($message = Session::get('success'))
-                <div class="alert alert-success">
-                    {{ $message }}
-                </div>
-            @endif
-
             <div class="d-flex justify-content-between align-items-center mb-4">
 
                 <h5>Data User</h5>

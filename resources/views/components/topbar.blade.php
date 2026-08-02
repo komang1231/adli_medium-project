@@ -18,12 +18,13 @@
         </a>
 
         {{-- Pelanggan --}}
-        <button href="{{ route('members.create') }}" class="topbar-action topbar-customer" type="button"
-            data-bs-toggle="offcanvas" data-bs-target="#formOffcanvas">
+        <a href="{{ route('members.index') }}" class="topbar-action topbar-customer" type="button"
+            {{-- data-bs-toggle="offcanvas" data-bs-target="#formOffcanvas" --}}
+            >
             <img class="add" src="{{ asset('assets/icons/topbar/add.svg') }}" alt="">
             <span>Pelanggan</span>
             <img class="icon" src="{{ asset('assets/icons/topbar/pelanggan.svg') }}" alt="">
-        </button>
+        </a>
         {{-- <button class="btn btn-add me-2" type="button" data-bs-toggle="offcanvas" data-bs-target="#formOffcanvas">
             <img class="icon" src="{{ asset('assets/icons/table/add.svg') }}" alt="">
             Add

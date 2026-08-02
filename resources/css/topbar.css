@@ -83,6 +83,7 @@
     width: 180px;
     height: 38px;
     background-color: var(--sc-profile);
+    text-decoration: none;
 }
 
 /* Kanan */
