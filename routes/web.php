@@ -45,7 +45,6 @@ Route::middleware('auth')->group(function () {
         Route::get('/dashboard/yearly-chart', [DashboardController::class, 'yearlyChart'])
             ->name('dashboard.yearly-chart');
 
-        Route::resource('members', MemberController::class);
 
         // Transaksi
         Route::get('/members/check', [MemberController::class, 'check'])
@@ -53,6 +52,7 @@ Route::middleware('auth')->group(function () {
         Route::get('transaksis/trash', [TransaksiController::class, 'trash'])
             ->name('transaksis.trash');
         Route::resource('transaksis', TransaksiController::class);
+        Route::resource('members', MemberController::class);
 
         // Payment
         Route::resource('payment-methods', PaymentMethodController::class);

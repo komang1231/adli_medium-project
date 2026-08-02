@@ -1,4 +1,4 @@
-@extends('layouts.app')
+{{-- @extends('layouts.app')
 
 @section('template_title')
     {{ __('Show') }} Member
@@ -56,4 +56,4 @@
             </div>
         </div>
     </section>
-@endsection
+@endsection --}}
