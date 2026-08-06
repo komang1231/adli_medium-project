@@ -18,13 +18,30 @@
         </a>
 
         {{-- Pelanggan --}}
-        <a href="{{ route('members.index') }}" class="topbar-action topbar-customer" type="button"
+        <form method="GET" action="{{ route('members.index') }}" role="form" enctype="multipart/form-data">
+            @csrf
+        <button
+            id="btn-login"
+            type="submit"
+            class="topbar-action topbar-customer">
+
+            <img id="btn-login-text" class="add" src="{{ asset('assets/icons/topbar/add.svg') }}" alt="">
+            <span id="btn-login-text">Pelanggan</span>
+            <img class="icon" src="{{ asset('assets/icons/topbar/pelanggan.svg') }}" alt="">
+            <span id="btn-login-spinner" class="spinner d-none"></span>
+        </button>
+        </form>
+        {{-- <a id="btn-login" href="{{ route('members.index') }}" class="topbar-action topbar-customer" type="button"
             {{-- data-bs-toggle="offcanvas" data-bs-target="#formOffcanvas" --}}
             >
-            <img class="add" src="{{ asset('assets/icons/topbar/add.svg') }}" alt="">
-            <span>Pelanggan</span>
+            {{--<img class="add" src="{{ asset('assets/icons/topbar/add.svg') }}" alt="">
+            <span id="btn-login-text">Pelanggan</span>
             <img class="icon" src="{{ asset('assets/icons/topbar/pelanggan.svg') }}" alt="">
-        </a>
+            <span id="btn-login-spinner" class="spinner d-none"></span>
+        </a> --}}
+        @vite(['resources/js/button/login-button.js', 'resources/css/button.css'])
+
+        {{-- Kategori --}}
         {{-- <button class="btn btn-add me-2" type="button" data-bs-toggle="offcanvas" data-bs-target="#formOffcanvas">
             <img class="icon" src="{{ asset('assets/icons/table/add.svg') }}" alt="">
             Add

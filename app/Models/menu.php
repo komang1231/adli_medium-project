@@ -34,7 +34,7 @@ class Menu extends Model
      *
      * @var array<int, string>
      */
-    protected $fillable = ['kode_menu', 'nama_menu', 'harga', 'stok', 'foto_menu', 'category_id'];
+    protected $fillable = ['kode_menu', 'nama_menu', 'harga', 'stok','satuan', 'foto_menu', 'category_id'];
 
 
     /**

@@ -103,19 +103,28 @@
 
         </div>
 
-        <!-- Stok -->
+        <!-- Stok & Satuan -->
         <div class="form-group mb-2">
+            <label class="form-label">Stok</label>
 
-            <label class="form-label">
+            <div class="input-group col-md-10">
+                <input type="number" name="stok" class="form-control @error('stok') is-invalid @enderror"
+                    value="{{ old('stok') }}">
 
-                Stok
-
-            </label>
-
-            <input type="number" name="stok" class="form-control @error('stok') is-invalid @enderror"
-                value="{{ old('stok') }}">
+                <select name="satuan" class="satuan-select form-select col-md-2 @error('satuan') is-invalid @enderror">
+                    <option value="pcs" {{ old('satuan') == 'pcs' ? 'selected' : '' }}>Pcs</option>
+                    <option value="gelas" {{ old('satuan') == 'gelas' ? 'selected' : '' }}>Gelas</option>
+                    <option value="cup" {{ old('satuan') == 'cup' ? 'selected' : '' }}>Cup</option>
+                    <option value="botol" {{ old('satuan') == 'botol' ? 'selected' : '' }}>Botol</option>
+                    <option value="porsi" {{ old('satuan') == 'porsi' ? 'selected' : '' }}>Porsi</option>
+                </select>
+                <i class="bi bi-chevron-down position-absolute top-50 end-0 translate-middle-y me-3"></i>
+            </div>  
 
             @error('stok')
+                <div class="invalid-feedback">{{ $message }}</div>
+            @enderror
+            @error('satuan')
                 <div class="invalid-feedback">{{ $message }}</div>
             @enderror
 
@@ -127,23 +136,6 @@
             Kategori
 
         </label>
-        {{-- <select id="category_id" name="category_id" class="form-select mb-2">
-
-            <option value="">
-
-                Pilih Kategori
-
-            </option>
-
-            @foreach ($categories as $category)
-                <option value="{{ $category->id }}">
-
-                    {{ $category->nama_category }}
-
-                </option>
-            @endforeach
-
-        </select> --}}
         <x-form.tom-select id="category_id" name="category_id" :options="$categories" valueField="id"
             labelField="nama_category" placeholder="Pilih Kategori" />
 
@@ -166,12 +158,14 @@
 
     <div class="col-md-12">
 
-        <button type="submit" class="btn btn-submit">
+        <button id="btn-tambah-menu" type="submit" class="btn btn-submit">
 
-            Submit
+            <span id="btn-tambah-spinner" class="spinner d-none"></span>
+            <span id="btn-tambah-text">Submit</span>
 
         </button>
 
     </div>
 
 </div>
+@vite(['resources/js/button/menu-button.js', 'resources/css/button.css'])

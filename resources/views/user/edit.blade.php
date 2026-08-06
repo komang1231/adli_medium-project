@@ -92,13 +92,14 @@
     <div class="col-md-12">
 
         <button
+            id="btn-edit-user"
             type="submit"
             class="btn btn-submit">
 
-            Submit
+            <span id="btn-edit-spinner" class="spinner d-none"></span>
+            <span id="btn-edit-text">Submit</span>
 
         </button>
-
     </div>
-
 </div>
+@vite(['resources/js/button/user-button.js', 'resources/css/button.css'])

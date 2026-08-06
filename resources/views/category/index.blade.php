@@ -90,7 +90,7 @@
                     <tr>
                         <thead>
                             <tr>
-                                <th width="70">No</th>
+                                <th width="20">No</th>
                                 <th width="140">Kode</th>
                                 <th>Nama Kategori</th>
                                 <th>Digunakan</th>
@@ -107,10 +107,11 @@
                             <td>{{ $category->menus_count }}</td>
 
                             <td class="text-center">
-                                <button type="button" class="btn-edit btn-edit-category" data-id="{{ $category->id }}"
+                                <button type="button" class="btn-edit btn-edit-category me-2" data-id="{{ $category->id }}"
                                     data-name="{{ $category->nama_category }}"
                                     data-action="{{ route('categories.update', $category->id) }}"
-                                    data-used="{{ $category->menus_count }}"> Edit 
+                                    data-used="{{ $category->menus_count }}"> 
+                                    <i class="bi bi-pencil-square"></i> 
                                 </button>
 
 
@@ -118,8 +119,7 @@
                                     data-id="{{ $category->id }}" data-name="{{ $category->nama_category }}"
                                     data-action="{{ route('categories.destroy', $category->id) }}"
                                     data-used="{{ $category->menus_count }}">
-
-                                    Hapus
+                                    <i class="bi bi-trash"></i>
 
                                 </button>
                             </td>
@@ -156,7 +156,7 @@
                 aria-label="Close"></button>
         </div>
         <div class="offcanvas-body">
-            <form method="POST" action="{{ route('categories.store') }}" role="form" enctype="multipart/form-data">
+            <form id="form-add-category" method="POST" action="{{ route('categories.store') }}" role="form" enctype="multipart/form-data">
                 @csrf
 
                 @include('category.form')
@@ -216,4 +216,5 @@
         menu.
 
     </x-modal.warning-modal>
+    
 @endsection

@@ -21,12 +21,15 @@
 
         <button
             type="submit"
+            id="btn-tambah-category"
             class="btn btn-submit">
 
-            Submit
+            <span id="btn-tambah-spinner" class="spinner d-none"></span>
+            <span id="btn-tambah-text">Simpan</span>
 
         </button>
 
     </div>
 
 </div>
+@vite(['resources/js/button/category-button.js', 'resources/css/button.css'])

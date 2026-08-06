@@ -36,7 +36,7 @@
 @endsection
 
 @section('content')
-    <form method="POST" action="{{ route('transaksis.store') }}" id="transactionForm">
+    <form id="form-add-transaksi" method="POST" action="{{ route('transaksis.store') }}">
         @csrf
         <section class="content container-fluid pos-page">
             <div class="row g-3">
@@ -150,8 +150,9 @@
                         <input type="hidden" name="payment_provider_id" id="form_payment_provider_id">
                         <input type="hidden" name="items" id="form_items">
 
-                        <button type="submit" class="btn-pos-primary" id="btnSaveTransaction">
-                            {{ __('Simpan Transaksi') }}
+                        <button id="btn-tambah-transaksi" type="submit" class="btn-pos-primary" id="btnSaveTransaction">
+                            <span id="btn-tambah-text">{{ __('Simpan Transaksi') }}</span>
+                            <span id="btn-tambah-spinner" class="spinner d-none"></span>
                         </button>
                         <a href="{{ url()->previous() }}" class="btn-pos-secondary">
                             {{ __('Batal') }}

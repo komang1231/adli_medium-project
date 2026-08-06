@@ -172,19 +172,28 @@
 
                                 <td class="text-center">
 
-                                    <a href="{{ route('users.show', $user->id) }}" class="btn-detail me-2">
+                                    {{-- <a href="{{ route('users.show', $user->id) }}" class="btn-detail me-2">
 
-                                        Detail
+                                        <i class="bi bi-eye"></i>
 
-                                    </a>
+                                    </a> --}}
+                                    <button type="button" class="btn-detail btn-detail-button btn-detail-user me-2"
+                                        data-bs-toggle="offcanvas" data-bs-target="#detailUserOffcanvas"
+                                        data-action="{{ route('users.show', $user->id) }}"
+                                        data-nama="{{ $user->nama_user }}" data-email="{{ $user->email }}"
+                                        data-telp="{{ $user->no_tlp }}"
+                                        data-foto="{{ $user->foto_profile ? asset('storage/' . $user->foto_profile) : '' }}">
 
-                                    <button type="button" class="btn-edit btn-edit-user"
+                                        <i class="bi bi-eye"></i>
+
+                                    </button>
+                                    <button type="button" class="btn-edit btn-edit-user me-1"
                                         data-action="{{ route('users.update', $user->id) }}"
                                         data-nama="{{ $user->nama_user }}" data-email="{{ $user->email }}"
                                         data-telp="{{ $user->no_tlp }}"
                                         data-foto="{{ $user->foto_profile ? asset('storage/' . $user->foto_profile) : '' }}">
 
-                                        Edit
+                                        <i class="bi bi-pencil-square"></i>
 
                                     </button>
 
@@ -193,10 +202,10 @@
                                         @csrf
                                         @method('DELETE')
 
-                                        <button type="submit" class="btn-hapus ms-2"
+                                        <button type="submit" class="btn-hapus"
                                             onclick="return confirm('Yakin ingin menghapus user ini?')">
 
-                                            Hapus
+                                            <i class="bi bi-trash"></i>
 
                                         </button>
 
@@ -261,7 +270,7 @@
 
             <div class="offcanvas-body">
 
-                <form action="{{ route('users.store') }}" method="POST" enctype="multipart/form-data">
+                <form id="form-add-user" action="{{ route('users.store') }}" method="POST" enctype="multipart/form-data">
 
                     @csrf
 
@@ -305,4 +314,30 @@
             </div>
 
         </div>
+        
+        {{-- OFFCANVAS DETAIL --}}
+        <div class="offcanvas offcanvasDetail offcanvas-end" tabindex="-1" id="detailUserOffcanvas"
+            aria-labelledby="detailUserOffcanvasLabel">
+
+            <div class="offcanvas-header">
+
+                <span class="offcanvas-title" id="detailUserOffcanvasLabel">
+
+                    Detail User
+
+                </span>
+
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="offcanvas">
+                </button>
+
+            </div>
+
+            <div class="offcanvas-body">
+
+                @include('user.show')
+
+            </div>
+        </div>
+
+    </div>
     @endsection

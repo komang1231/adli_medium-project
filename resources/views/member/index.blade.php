@@ -41,7 +41,7 @@
                         </button>
 
                         <a href="{{ route('members.index', ['expired' => 1]) }}" class="btn btn-add btn-trash-soft me-2">
-                            <img class="icon" src="{{ asset('assets/icons/table/trash.svg') }}" alt="">
+                            <img class="icon" src="{{ asset('assets/icons/table/expired.svg') }}" alt="">
                             Expired
                         </a>
                     @endif
@@ -78,11 +78,12 @@
                 <table class="table">
                     <thead>
                         <tr>
-                            <th width="70">No</th>
+                            <th width="20">No</th>
                             <th width="170">Kode Pelanggan</th>
                             <th>Nama Pelanggan</th>
                             <th>Nomor Telp</th>
                             <th width="120">Status</th>
+                            <th>Expired</th>
                             @if (request('expired'))
                                 <th width="150" class="text-center">Aksi</th>
                             @endif
@@ -96,6 +97,7 @@
                                 <td>{{ $member->nama_pelanggan }}</td>
                                 <td>{{ $member->no_tlp }}</td>
                                 <td>{{ $member->expired_status }}</td>
+                                <td>{{ $member->expired_at?->format('d-m-Y s:i:H') ?? '' }}</td>    
                                 <td class="text-center">
                                     @if (request('expired'))
                                         {{--
@@ -150,7 +152,7 @@
                 aria-label="Close"></button>
         </div>
         <div class="offcanvas-body">
-            <form method="POST" action="{{ route('members.store') }}" role="form" enctype="multipart/form-data">
+            <form id="form-add-member" method="POST" action="{{ route('members.store') }}" role="form" enctype="multipart/form-data">
                 @csrf
 
                 @include('member.form')
@@ -226,7 +228,7 @@
                     editTitle.textContent = 'Perpanjang Member';
                     nameInput.value = nama;
                     telpInput.value = telp;
-                    durationInput.value = '5s';
+                    durationInput.value = '15s';
                     currentStatus.textContent = status || '-';
                     currentExpired.textContent = expired || '-';
 

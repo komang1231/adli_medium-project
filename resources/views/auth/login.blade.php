@@ -26,31 +26,42 @@
 
         <form method="POST" action="{{ route('login') }}">
             @csrf
+            @error('password')
+                <div class="invalid-feedback">{{ $message }}</div>
+            @enderror
+            @error('email')
+                <div class="invalid-feedback">{{ $message }}</div>
+            @enderror
+            @if ($errors->any())
+                <div class="alert alert-danger">
 
+                    {{ $errors->first() }}
+
+                </div>
+            @endif
+            @if ($message = Session::get('success'))
+                <div class="alert alert-success">
+                    <p>{{ $message }}</p>
+                </div>
+            @endif
             <div class="form-group">
                 <label for="email" class="form-label">{{ __('Email') }}</label>
-                <input type="email" name="email" id="email"
-                    class="form-control @error('email') is-invalid @enderror" value="{{ old('email') }}"
+                <input type="email" name="email" id="email" class="form-control" value="{{ old('email') }}"
                     placeholder="{{ __('Masukkan email') }}" autofocus>
-                @error('email')
-                    <div class="invalid-feedback">{{ $message }}</div>
-                @enderror
+
             </div>
 
             <div class="form-group">
                 <label for="password" class="form-label">{{ __('Password') }}</label>
                 <div class="password-wrapper">
-                    <input type="password" name="password" id="password"
-                        class="form-control @error('password') is-invalid @enderror"
+                    <input type="password" name="password" id="password" class="form-control"
                         placeholder="{{ __('Masukkan password') }}">
                     <button type="button" class="btn-toggle-password" id="togglePassword"
                         aria-label="Tampilkan password">
                         <i class="bi bi-eye" id="toggleIcon"></i>
                     </button>
                 </div>
-                @error('password')
-                    <div class="invalid-feedback">{{ $message }}</div>
-                @enderror
+
             </div>
 
             {{-- <div class="login-options">
@@ -64,8 +75,10 @@
                 @endif
             </div> --}}
 
-            <button type="submit" class="btn-login mt-3">{{ __('Login') }}</button>
-
+            <button type="submit" id="btn-login" class="btn-login mt-3">
+                <span id="btn-login-text">{{ __('Login') }}</span>
+                <span id="btn-login-spinner" class="spinner d-none"></span>
+            </button>
         </form>
 
     </div>
@@ -85,6 +98,7 @@
             togglePassword.setAttribute('aria-label', isHidden ? 'Sembunyikan password' : 'Tampilkan password');
         });
     </script>
+    @vite(['resources/js/button/login-button.js', 'resources/css/button.css'])
 </body>
 
 </html>
