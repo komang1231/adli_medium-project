@@ -111,6 +111,8 @@ Route::middleware('auth')->group(function () {
         Route::delete('menus/{id}/force-delete', [MenuController::class, 'forceDelete'])
             ->name('menus.forceDelete');
 
+        // Route::post('menus/{menu}/hapus', [MenuController::class, 'destroy'])
+        //     ->name('menus.hapus');
         Route::resource('menus', MenuController::class);
         // Route::resource('members', MemberController::class);
         // Route::resource('transaksis', TransaksiController::class);

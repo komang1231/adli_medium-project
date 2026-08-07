@@ -7,6 +7,13 @@
 @section('content')
     <div class="content-card">
 
+        @if ($errors->any())
+            <div class="alert alert-danger">
+
+                {{ $errors->first() }}
+
+            </div>
+        @endif
         @if ($message = Session::get('success'))
             <div class="alert alert-success">
                 <p>{{ $message }}</p>
@@ -125,13 +132,13 @@
 
                     <tr>
 
-                        <th width="70">No</th>
+                        <th width="20">No</th>
 
-                        <th width="180">Kode</th>
+                        <th width="190">Kode</th>
 
-                        <th width="150">Tipe</th>
+                        <th width="120">Tipe</th>
 
-                        <th width="180">Payment</th>
+                        <th width="120">Payment</th>
 
                         <th>Total</th>
 
@@ -166,15 +173,15 @@
 
                             <td class="text-center">
 
-                                <a href="{{ route('transaksis.show', $transaksi->id) }}" class="btn-edit">
+                                <a href="{{ route('transaksis.show', $transaksi->id) }}" class="btn-detail">
 
-                                    Detail
+                                    <i class="bi bi-eye"></i>
 
                                 </a>
 
                                 <button type="button" class="btn-hapus ms-2">
 
-                                    Hapus
+                                    <i class="bi bi-trash"></i>
 
                                 </button>
 

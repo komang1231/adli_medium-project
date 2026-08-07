@@ -13,7 +13,7 @@
     name="{{ $name }}"
     class="form-select tom-select">
 
-    <option value="">
+    <option class="placeholder" value="">
         {{ $placeholder }}
     </option>
 

@@ -58,7 +58,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     }));
 
-    const SERVICE_FEE = 2000;
+    const SERVICE_FEE = 0.05;
     const TAX_RATE = 0.11;
     const MEMBER_DISCOUNT_RATE = 0.10;
 
@@ -350,7 +350,7 @@ document.addEventListener('DOMContentLoaded', () => {
     function renderSummary() {
         const subtotal = Object.values(order).reduce((acc, item) => acc + item.price * item.qty, 0);
         const discount = isMember ? subtotal * MEMBER_DISCOUNT_RATE : 0;
-        const service = subtotal > 0 ? SERVICE_FEE : 0;
+        const service = subtotal > 0 ? SERVICE_FEE * subtotal : 0;
         const taxBase = subtotal - discount + service;
         const tax = subtotal > 0 ? taxBase * TAX_RATE : 0;
         const grandTotal = taxBase + tax;

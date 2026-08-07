@@ -151,13 +151,14 @@
     <div class="col-md-12">
 
         <button
+            id="btn-tambah-user"
             type="submit"
             class="btn btn-submit">
 
-            Submit
+            <span id="btn-tambah-spinner" class="spinner d-none"></span>
+            <span id="btn-tambah-text">Tambah User</span>
 
         </button>
-
     </div>
-
 </div>
+@vite(['resources/js/button/user-button.js', 'resources/css/button.css'])

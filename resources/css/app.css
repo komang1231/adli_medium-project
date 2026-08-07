@@ -11,12 +11,12 @@
 @import './filter-popup.css';
 @import './modal.css';
 @import './show.css';
+@import './invoice.css';
 @import './transaksi.css';
 @import './profile-offcanvas.css';
+@import './button.css';
 
-:root {
-    
-}
+:root {}
 
 /* Dark */
 [data-theme="dark"] {
@@ -35,6 +35,7 @@
 
     --neutral-btn-add: #5555AA;
     --error-btn-trash: #850000;
+    --error-btn-expired: #ef44442e;
     --neutral-btn-sort: #C6C6DC;
     --info-btn-detail: #6C63FF;
     --accent-btn-edit: #F5B83D;
@@ -82,6 +83,8 @@ body {
 
 .main-content {
     padding: 30px;
+
+    
 }
 
 @source '../../vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php';

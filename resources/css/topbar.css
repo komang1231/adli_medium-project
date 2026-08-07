@@ -1,6 +1,6 @@
 .topbar {
     width: 100%;
-    height: 70px;
+    height: 50px;
 
     display: flex;
     align-items: center;
@@ -10,7 +10,7 @@
 
 /* Kiri */
 .topbar-left {
-    width: 70px;
+    width: 50px;
     height: 70px;
 }
 
@@ -44,18 +44,24 @@
 }
 
 .topbar-action {
-    height: 48px;
+    height: 10px;
 
     display: flex;
     align-items: center;
     justify-content: center;
 
     border: 0;
-    border-radius: 24px;
+    border-radius: 2px;
 
     color: var(--white);
     font-family: inherit;
     font-size: 16px;
+
+    transition: background-color 150ms ease, color 150ms ease;
+}
+.topbar-action:hover {
+    background-color: var(--neutral-sidebar-hover);
+    color: var(--white);
 }
 
 .topbar-action .icon {
@@ -83,6 +89,7 @@
     width: 180px;
     height: 38px;
     background-color: var(--sc-profile);
+    text-decoration: none;
 }
 
 /* Kanan */
@@ -129,6 +136,7 @@
     display: flex;
     align-items: center;
     width: 120px;
+    height: 38px;
     gap: 20px;
 
     background-color: var(--sc-profile);
@@ -140,8 +148,8 @@
 
 .topbar-user img {
     border-radius: 50%;
-    width: 40px;
-    height: 40px;
+    width: 30px;
+    height: 30px;
 }
 
 .topbar-user-info {
@@ -153,13 +161,13 @@
 
 .topbar-user-name {
     color: var(--white);
-    font-size: 14px;
-    font-weight: 600;
+    font-size: 13px;
+    font-weight: 500;
 }
 
 .topbar-user-role {
     color: var(--role-text);
-    font-size: 11px;
+    font-size: 10px;
     font-weight: 500;
 }
 

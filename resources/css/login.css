@@ -80,24 +80,24 @@ body {
 }
 
 .form-control {
-    background-color: var(--btn-search);
+    background-color: var(--white);
     border: 1px solid transparent;
-    color: var(--white);
+    color: black;
     border-radius: 25px;
     padding: 12px 18px;
     font-size: 14px;
 }
 
 .form-control::placeholder {
-    color: var(--neutral-text);
+    color: black;
 }
 
-.form-control:focus {
+/* .form-control:focus {
     background-color: var(--btn-search);
     color: var(--white);
     border-color: var(--neutral-pagination-active);
     box-shadow: 0 0 0 0.15rem rgba(108, 99, 255, 0.25);
-}
+} */
 
 .form-control.is-invalid {
     border-color: var(--error-btn-hapus);
@@ -189,3 +189,4 @@ body {
 .btn-toggle-password:hover {
     color: var(--neutral-text);
 }
+

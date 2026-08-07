@@ -95,11 +95,77 @@ class Transaksi extends Model
     }
     
     /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function staff()
+    {
+        return $this->belongsTo(\App\Models\User::class, 'user_id', 'id');
+    }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function items()
+    {
+        return $this->hasMany(\App\Models\detail_transaksi::class, 'transaksi_id', 'id');
+    }
+
+    /**
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
     public function detailTransakses()
     {
-        return $this->hasMany(\App\Models\detail_transaksi::class, 'id', 'transaksi_id');
+        return $this->items();
+    }
+
+    public function getStatusAttribute()
+    {
+        return $this->status_pesanan;
+    }
+
+    public function getIsMemberAttribute()
+    {
+        return $this->tipe_pelanggan === 'Member';
+    }
+
+    // public function getPaymentMethodAttribute()
+    // {
+    //     return $this->paymentMethod?->nama_payment_method;
+    // }
+
+    // public function getPaymentProviderAttribute()
+    // {
+    //     return $this->paymentProvider?->nama_payment_provider;
+    // }
+
+    public function getNamaBankAttribute()
+    {
+        return $this->transferBank?->nama_bank;
+    }
+
+    public function getNoRekeningAttribute()
+    {
+        return $this->transferBank?->no_rekening;
+    }
+
+    public function getNamaPemilikRekeningAttribute()
+    {
+        return $this->transferBank?->nama_pemilik_rekening;
+    }
+
+    public function getSubtotalAttribute()
+    {
+        return $this->items->sum('subtotal_harga');
+    }
+
+    public function getServiceChargeAttribute()
+    {
+        return $this->harga_service_charge;
+    }
+
+    public function getPpnAttribute()
+    {
+        return $this->harga_ppn;
     }
 
 

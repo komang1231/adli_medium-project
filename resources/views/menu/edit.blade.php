@@ -56,8 +56,18 @@
 
         </div>
 
+        <!-- Kategori -->
+        <label class="form-label">
+
+            Kategori
+
+        </label>
+        
+        <x-form.tom-select id="category_id" name="category_id" :options="$categories" valueField="id"
+            labelField="nama_category" placeholder="Pilih Kategori" />
+
         <!-- Foto -->
-        <div class="form-group mb-4">
+        <div class="form-group mb-3">
 
             <label class="form-label">
 
@@ -69,35 +79,18 @@
 
         </div>
 
-        <!-- Kategori -->
-        <select id="edit_category_id" name="category_id" class="form-select">
-
-            <option value="">
-
-                Pilih Kategori
-
-            </option>
-
-            @foreach ($categories as $category)
-                <option value="{{ $category->id }}">
-
-                    {{ $category->nama_category }}
-
-                </option>
-            @endforeach
-
-        </select>
-
     </div>
 
     <div class="col-md-12">
 
-        <button type="submit" class="btn btn-submit">
+        <button id="btn-edit-menu" type="submit" class="btn btn-submit">
 
-            Submit
+            <span id="btn-edit-spinner" class="spinner d-none"></span>
+            <span id="btn-edit-text">Submit</span>
 
         </button>
 
     </div>
 
 </div>
+@vite(['resources/js/button/menu-button.js', 'resources/css/button.css'])
