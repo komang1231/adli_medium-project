@@ -49,12 +49,13 @@
 
     <div class="col-md-12">
 
-        <button type="submit" class="btn btn-submit">
-
-            Submit
+        <button id="btn-edit-category" type="submit" class="btn btn-submit">
+            <span id="btn-edit-spinner" class="spinner d-none"></span>
+            <span id="btn-edit-text">Simpan</span>
 
         </button>
 
     </div>
 
 </div>
+@vite(['resources/js/button/category-button.js', 'resources/css/button.css'])

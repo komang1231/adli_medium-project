@@ -86,7 +86,7 @@
 
                 <tr>
 
-                    <th width="70">No</th>
+                    <th width="20">No</th>
                     <th>Nama</th>
                     <th>Email</th>
                     <th>Role</th>

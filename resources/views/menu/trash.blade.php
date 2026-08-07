@@ -43,7 +43,7 @@
             <table class="table">
                 <thead>
                     <tr>
-                        <th width="70">No</th>
+                        <th width="20">No</th>
                         <th width="140">Kode Menu</th>
                         <th>Nama Menu</th>
                         <th>Harga</th>

@@ -1,0 +1,248 @@
+ /* =========================================================
+               INVOICE / DETAIL TRANSAKSI
+               ========================================================= */
+
+        .invoice-page {
+            padding-bottom: 40px;
+        }
+
+        .invoice-header {
+            margin-bottom: 24px;
+        }
+
+        .invoice-title {
+            font-size: 20px;
+            font-weight: 600;
+            color: var(--white);
+        }
+
+        .invoice-subtitle {
+            font-size: 13px;
+            color: var(--neutral-text);
+            margin-top: 2px;
+        }
+
+        .invoice-card {
+            background-color: var(--neutral-sidebar);
+            border-radius: 14px;
+            padding: 18px;
+            box-shadow: 0 4px 14px rgba(0, 0, 0, 0.2);
+            height: 100%;
+        }
+
+        .invoice-card-title {
+            font-size: 11px;
+            color: var(--role-text);
+            text-transform: uppercase;
+            letter-spacing: 0.04em;
+            margin-bottom: 12px;
+        }
+
+        .invoice-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 13px;
+            margin-bottom: 8px;
+            color: var(--white);
+        }
+
+        .invoice-row span:first-child {
+            color: var(--neutral-text);
+        }
+
+        .invoice-row-last {
+            margin-bottom: 0;
+        }
+
+        .invoice-divider {
+            height: 1px;
+            background-color: var(--neutral-pagination);
+            margin: 10px 0;
+        }
+
+        .invoice-badge {
+            font-size: 11px;
+            font-weight: 500;
+            padding: 3px 10px;
+            border-radius: 999px;
+        }
+
+        .invoice-badge-success {
+            background-color: rgba(99, 153, 34, 0.18);
+            color: #97C459;
+        }
+
+        .invoice-badge-member {
+            background-color: rgba(85, 85, 170, 0.25);
+            color: #8F8FD1;
+        }
+
+        .invoice-badge-neutral {
+            background-color: var(--neutral-pagination);
+            color: var(--neutral-text);
+        }
+
+        /* ---------- Table ---------- */
+
+        .invoice-table {
+            color: var(--white);
+            margin-bottom: 0;
+        }
+
+        .invoice-table thead th {
+            font-size: 12px;
+            font-weight: 500;
+            color: var(--role-text);
+            border-bottom: 1px solid var(--neutral-pagination);
+            padding: 8px 6px;
+        }
+
+        .invoice-table tbody td {
+            font-size: 13px;
+            padding: 10px 6px;
+            border-bottom: 1px solid var(--neutral-pagination-active-10, #232849);
+            vertical-align: middle;
+        }
+
+        .invoice-table tbody tr:last-child td {
+            border-bottom: none;
+        }
+
+        /* ---------- Ringkasan Pembayaran ---------- */
+
+        .invoice-summary-row {
+            display: flex;
+            justify-content: space-between;
+            font-size: 13px;
+            color: var(--neutral-text);
+            margin-bottom: 8px;
+        }
+
+        .invoice-summary-row span:last-child {
+            color: var(--white);
+        }
+
+        .invoice-summary-discount span:last-child {
+            color: #97C459;
+        }
+
+        .invoice-summary-total {
+            display: flex;
+            justify-content: space-between;
+            align-items: baseline;
+            border-top: 1px solid var(--neutral-pagination);
+            padding-top: 14px;
+            margin-top: 6px;
+        }
+
+        .invoice-summary-total span:first-child {
+            font-size: 13px;
+            color: var(--role-text);
+        }
+
+        .invoice-summary-total span:last-child {
+            font-size: 22px;
+            font-weight: 600;
+            color: var(--white);
+        }
+
+        /* ---------- Footer ---------- */
+
+        .invoice-footer {
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .btn-invoice-secondary {
+            background-color: transparent;
+            color: var(--neutral-text);
+            border: 1px solid var(--neutral-pagination);
+            border-radius: 8px;
+            padding: 10px 20px;
+            font-size: 13px;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            text-decoration: none;
+            transition: border-color 150ms ease, color 150ms ease;
+        }
+
+        .btn-invoice-secondary:hover {
+            border-color: var(--white);
+            color: var(--white);
+        }
+
+        .btn-invoice-primary {
+            background-color: var(--neutral-pagination-active);
+            color: var(--white);
+            border: none;
+            border-radius: 8px;
+            padding: 10px 20px;
+            font-size: 13px;
+            font-weight: 600;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            cursor: pointer;
+            transition: opacity 150ms ease;
+        }
+
+        .btn-invoice-primary:hover {
+            opacity: 0.9;
+            color: var(--white);
+        }
+
+        /* =========================================================
+               PRINT-READY
+               — sembunyikan semua chrome dashboard (sidebar, topbar, footer
+                 aksi), tampilkan invoice-nya saja dengan warna print-friendly.
+               ========================================================= */
+
+        @media print {
+            body * {
+                visibility: hidden;
+            }
+
+            #invoicePrintArea,
+            #invoicePrintArea * {
+                visibility: visible;
+            }
+
+            #invoicePrintArea {
+                position: absolute;
+                top: 0;
+                left: 0;
+                width: 100%;
+                margin: 0;
+                padding: 0;
+            }
+
+            .invoice-card {
+                background-color: #ffffff !important;
+                color: #1a1a1a !important;
+                box-shadow: none !important;
+                border: 1px solid #ddd !important;
+            }
+
+            .invoice-card-title,
+            .invoice-row span:first-child,
+            .invoice-summary-row,
+            .invoice-summary-total span:first-child,
+            .invoice-table thead th {
+                color: #666 !important;
+            }
+
+            .invoice-row,
+            .invoice-summary-row span:last-child,
+            .invoice-summary-total span:last-child,
+            .invoice-table tbody td {
+                color: #1a1a1a !important;
+            }
+
+            .invoice-badge-success,
+            .invoice-badge-member,
+            .invoice-badge-neutral {
+                border: 1px solid #ccc !important;
+            }
+        }

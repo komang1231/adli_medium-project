@@ -26,6 +26,7 @@ class MenuRequest extends FormRequest
             'nama_menu' => 'required|string',
             'harga' => 'required|numeric|min:0',
             'stok' => 'required|integer|min:0',
+            'satuan' => 'required|in:pcs,gelas,cup,botol,porsi',
             'category_id' => 'required|exists:categories,id',
             'foto_menu' => 'nullable|image|mimes:jpg,jpeg,png,webp|max:2048',
         ];

@@ -20,6 +20,11 @@ class Detail_Transaksi extends Model
         'subtotal_harga',
     ];
 
+    public function menu()
+    {
+        return $this->belongsTo(\App\Models\Menu::class, 'menu_id', 'id');
+    }
+
     protected static function booted(): void
     {
         static::creating(function ($detailTransaksi) {

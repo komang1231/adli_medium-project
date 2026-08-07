@@ -15,7 +15,7 @@
             <label for="duration" class="form-label">{{ __('Pilih Durasi Member (detik)') }}</label>
             <select name="duration" id="duration" class="form-select-custom @error('duration') is-invalid @enderror" @if(!$member?->exists) required @endif>
                 <option value="" {{ old('duration') == '' ? 'selected' : '' }}>Pilih lama member</option>
-                <option value="5s" {{ old('duration') == '5s' ? 'selected' : '' }}>5 Detik</option>
+                <option value="15s" {{ old('duration') == '15s' ? 'selected' : '' }}>15 Detik</option>
                 <option value="1month" {{ old('duration') == '1month' ? 'selected' : '' }}>1 Bulan</option>
                 <option value="3month" {{ old('duration') == '3month' ? 'selected' : '' }}>3 Bulan</option>
                 <option value="6month" {{ old('duration') == '6month' ? 'selected' : '' }}>6 Bulan</option>
@@ -29,6 +29,11 @@
 
     </div>
     <div class="col-md-12 mt20 mt-2">
-        <button type="submit" class="btn btn-primary">{{ __('Submit') }}</button>
+        <button id="btn-add-member" type="submit" class="btn btn-primary">
+            <span id="btn-login-spinner" class="spinner d-none"></span>
+            <span id="btn-tambah-text">Submit</span>
+
+        </button>
     </div>
 </div>
+@vite(['resources/js/button/member-button.js', 'resources/css/button.css'])

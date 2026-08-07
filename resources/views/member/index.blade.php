@@ -7,86 +7,100 @@
 @section('content')
     <section class="content container-fluid">
         <div class="content-card">
+            @if ($errors->any())
+                <div class="alert alert-danger">
+
+                    {{ $errors->first() }}
+
+                </div>
+            @endif
             @if ($message = Session::get('success'))
                 <div class="alert alert-success">
                     <p>{{ $message }}</p>
                 </div>
             @endif
 
-        <div class="d-flex justify-content-between align-items-center mb-4">
-            <h5>Data Member</h5>
-            @if(request('expired'))
-                <span class="entries-info">Menampilkan member expired</span>
-            @endif
-        </div>
-
-        <div class="d-flex justify-content-between align-items-center mb-4">
-            <div>
-                @if(request('expired'))
-                    <a href="{{ route('members.index') }}" class="btn btn-add">
-                        Kembali
-                    </a>
-                @else
-                    <button class="btn btn-add me-2" type="button" data-bs-toggle="offcanvas" data-bs-target="#formOffcanvas">
-                        <img class="icon" src="{{ asset('assets/icons/table/add.svg') }}" alt="">
-                        Add
-                    </button>
-
-                    <a href="{{ route('members.index', ['expired' => 1]) }}" class="btn btn-add btn-trash-soft me-2">
-                        <img class="icon" src="{{ asset('assets/icons/table/trash.svg') }}" alt="">
-                        Expired
-                    </a>
+            <div class="d-flex justify-content-between align-items-center mb-4">
+                <h5>Data Member</h5>
+                @if (request('expired'))
+                    <span class="entries-info">Menampilkan member expired</span>
                 @endif
             </div>
 
-            <div class="d-flex align-items-center">
-                <form action="{{ route('members.index') }}" method="GET" class="d-flex align-items-center">
-                    @if(request('expired'))
-                        <input type="hidden" name="expired" value="1">
+            <div class="d-flex justify-content-between align-items-center mb-4">
+                <div>
+                    @if (request('expired'))
+                        <a href="{{ route('members.index') }}" class="btn btn-add">
+                            Kembali
+                        </a>
+                    @else
+                        <button class="btn btn-add me-2" type="button" data-bs-toggle="offcanvas"
+                            data-bs-target="#formOffcanvas">
+                            <img class="icon" src="{{ asset('assets/icons/table/add.svg') }}" alt="">
+                            Add
+                        </button>
+
+                        <a href="{{ route('members.index', ['expired' => 1]) }}" class="btn btn-add btn-trash-soft me-2">
+                            <img class="icon" src="{{ asset('assets/icons/table/expired.svg') }}" alt="">
+                            Expired
+                        </a>
                     @endif
+                </div>
 
-                    <a href="{{ route('members.index', [
-                        'search' => request('search'),
-                        'expired' => request('expired'),
-                        'sort' => $sort == 'asc' ? 'desc' : 'asc',
-                    ]) }}" class="sort-btn me-2 px-2 py-2">
+                <div class="d-flex align-items-center">
+                    <form action="{{ route('members.index') }}" method="GET" class="d-flex align-items-center">
+                        @if (request('expired'))
+                            <input type="hidden" name="expired" value="1">
+                        @endif
 
-                        <img src="{{ asset($sort == 'asc' ? 'assets/icons/table/sort_up.svg' : 'assets/icons/table/sort_down.svg') }}"
-                            alt="Sort">
+                        <a href="{{ route('members.index', [
+                            'search' => request('search'),
+                            'expired' => request('expired'),
+                            'sort' => $sort == 'asc' ? 'desc' : 'asc',
+                        ]) }}"
+                            class="sort-btn me-2 px-2 py-2">
 
-                    </a>
+                            <img src="{{ asset($sort == 'asc' ? 'assets/icons/table/sort_up.svg' : 'assets/icons/table/sort_down.svg') }}"
+                                alt="Sort">
 
-                    <input type="text" name="search" class="search-box" placeholder="Cari..." value="{{ request('search') }}">
-                    <button type="submit" class="search-icon-btn">
-                        <img src="{{ asset('assets/icons/table/search.svg') }}" alt="">
-                    </button>
-                </form>
+                        </a>
+
+                        <input type="text" name="search" class="search-box" placeholder="Cari..."
+                            value="{{ request('search') }}">
+                        <button type="submit" class="search-icon-btn">
+                            <img src="{{ asset('assets/icons/table/search.svg') }}" alt="">
+                        </button>
+                    </form>
+                </div>
             </div>
-        </div>
 
-        <div class="table-responsive">
-            <table class="table">
-                <thead>
-                    <tr>
-                        <th width="70">No</th>
-                        <th width="140">Kode Pelanggan</th>
-                        <th>Nama Pelanggan</th>
-                        <th>Nomor Telp</th>
-                        <th>Status</th>
-                        <th class="text-center">Aksi</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @forelse ($members as $member)
+            <div class="table-responsive">
+                <table class="table">
+                    <thead>
                         <tr>
-                            <td>{{ $members->firstItem() + $loop->index }}</td>
-                            <td>{{ $member->kode_pelanggan }}</td>
-                            <td>{{ $member->nama_pelanggan }}</td>
-                            <td>{{ $member->no_tlp }}</td>
-                            <td>{{ $member->expired_status }}</td>
-                            <td class="text-center">
-                                @if(request('expired'))
-                                    {{--
+                            <th width="20">No</th>
+                            <th width="170">Kode Pelanggan</th>
+                            <th>Nama Pelanggan</th>
+                            <th>Nomor Telp</th>
+                            <th width="120">Status</th>
+                            <th>Expired</th>
+                            @if (request('expired'))
+                                <th width="150" class="text-center">Aksi</th>
+                            @endif
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @forelse ($members as $member)
+                            <tr>
+                                <td>{{ $members->firstItem() + $loop->index }}</td>
+                                <td>{{ $member->kode_pelanggan }}</td>
+                                <td>{{ $member->nama_pelanggan }}</td>
+                                <td>{{ $member->no_tlp }}</td>
+                                <td>{{ $member->expired_status }}</td>
+                                <td>{{ $member->expired_at?->format('d-m-Y s:i:H') ?? '' }}</td>    
+                                <td class="text-center">
+                                    @if (request('expired'))
+                                        {{--
                                     <button type="button" class="btn btn-perpanjang btn-perpanjang-member" data-bs-toggle="offcanvas"
                                         data-bs-target="#editMemberOffcanvas"
                                         data-action="{{ route('members.update', $member->id) }}"
@@ -98,37 +112,36 @@
                                         Perpanjang
                                     </button>
                                     --}}
-                                    <form action="{{ route('members.destroy', $member->id) }}" method="POST" class="d-inline">
-                                        @csrf
-                                        @method('DELETE')
-                                        <button type="submit" class="btn btn-hapus ms-2">Hapus</button>
-                                    </form>
-                                @else
-                                    <a class="btn btn-detail" href="{{ route('members.show', $member->id) }}">Detail</a>
-                                @endif
-                            </td>
-                        </tr>
-                    @empty
-                        <tr>
-                            <td colspan="6" class="text-center">
-                                Belum ada data member.
-                            </td>
-                        </tr>
-                    @endforelse
-                </tbody>
-            </table>
-        </div>
+                                        <form action="{{ route('members.destroy', $member->id) }}" method="POST"
+                                            class="d-inline">
+                                            @csrf
+                                            @method('DELETE')
+                                            <button type="submit" class="btn btn-hapus ms-2">Hapus</button>
+                                        </form>
+                                    @endif
+                                </td>
+                            </tr>
+                        @empty
+                            <tr>
+                                <td colspan="6" class="text-center">
+                                    Belum ada data member.
+                                </td>
+                            </tr>
+                        @endforelse
+                    </tbody>
+                </table>
+            </div>
 
-        <div class="d-flex justify-content-between align-items-center mt-3">
-            <span class="entries-info">
-                Showing {{ $members->firstItem() ?? 0 }}
-                to {{ $members->lastItem() ?? 0 }}
-                of {{ $members->total() }} entries
-            </span>
+            <div class="d-flex justify-content-between align-items-center mt-3">
+                <span class="entries-info">
+                    Showing {{ $members->firstItem() ?? 0 }}
+                    to {{ $members->lastItem() ?? 0 }}
+                    of {{ $members->total() }} entries
+                </span>
 
-            {{ $members->withQueryString()->links() }}
+                {{ $members->withQueryString()->links() }}
+            </div>
         </div>
-    </div>
     </section>
 
     {{-- OFF CANVAS CREATE --}}
@@ -139,7 +152,7 @@
                 aria-label="Close"></button>
         </div>
         <div class="offcanvas-body">
-            <form method="POST" action="{{ route('members.store') }}" role="form" enctype="multipart/form-data">
+            <form id="form-add-member" method="POST" action="{{ route('members.store') }}" role="form" enctype="multipart/form-data">
                 @csrf
 
                 @include('member.form')
@@ -171,7 +184,7 @@
     </div>
 
     <script>
-        document.addEventListener('DOMContentLoaded', function () {
+        document.addEventListener('DOMContentLoaded', function() {
             const perpanjangButtons = document.querySelectorAll('.btn-perpanjang-member');
             const editForm = document.getElementById('editMemberForm');
             const editTitle = document.getElementById('editMemberOffcanvasLabel');
@@ -204,7 +217,7 @@
             }
 
             perpanjangButtons.forEach((button) => {
-                button.addEventListener('click', function () {
+                button.addEventListener('click', function() {
                     const action = this.dataset.action;
                     const nama = this.dataset.nama;
                     const telp = this.dataset.telp;
@@ -215,7 +228,7 @@
                     editTitle.textContent = 'Perpanjang Member';
                     nameInput.value = nama;
                     telpInput.value = telp;
-                    durationInput.value = '5s';
+                    durationInput.value = '15s';
                     currentStatus.textContent = status || '-';
                     currentExpired.textContent = expired || '-';
 

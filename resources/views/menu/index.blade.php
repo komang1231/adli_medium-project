@@ -11,6 +11,13 @@
             <h5>Data Menu</h5>
         </div>
 
+        @if ($errors->any())
+            <div class="alert alert-danger">
+
+                {{ $errors->first() }}
+
+            </div>
+        @endif
         @if ($message = Session::get('success'))
             <div class="alert alert-success">
                 <p>{{ $message }}</p>
@@ -92,12 +99,12 @@
             <table class="table">
                 <thead>
                     <tr>
-                        <th width="70">No</th>
+                        <th width="20">No</th>
                         <th width="140">Kode Menu</th>
                         <th>Nama Menu</th>
                         <th>Harga</th>
                         <th>Stok</th>
-                        {{-- <th>Foto Menu</th> --}}
+                        {{-- <th width="20" padding-right="150"></th> --}}
                         <th>Kategori</th>
                         <th class="text-center">Aksi</th>
                     </tr>
@@ -109,29 +116,28 @@
                             <td>{{ $menu->kode_menu }}</td>
                             <td>{{ $menu->nama_menu }}</td>
                             <td>Rp {{ number_format($menu->harga, 0, ',', '.') }}</td>
-                            <td>{{ $menu->stok }}</td>
-                            {{-- <td>
-                                @if ($menu->foto_menu)
-                                    <img src="{{ asset('storage/' . $menu->foto_menu) }}" alt="{{ $menu->nama_menu }}"
-                                        class="menu-thumb">
-                                @else
-                                    <span class="text-muted-cell">-</span>
-                                @endif
-                            </td> --}}
+                            <td>{{ $menu->stok }} {{ $menu->satuan }}</td>
+                            {{-- <td>{{ $menu->satuan }}</td> --}}
                             <td>{{ $menu->category->nama_category ?? '-' }}</td>
 
                             <td class="text-center">
-                                <a href="{{ route('menus.show', $menu->id) }}" class="btn-detail btn-detail-menu me-1">
-
-                                    Detail
-                                </a>
-                                <button type="button" class="btn-edit btn-edit-menu"
-                                    data-action="{{ route('menus.update', $menu->id) }}"
+                                <button type="button" class="btn-detail btn-detail-button"
+                                    data-bs-toggle="offcanvas" data-bs-target="#detailMenuOffcanvas"
+                                    data-action="{{ route('menus.show', $menu->id) }}"
                                     data-nama="{{ $menu->nama_menu }}" data-harga="{{ $menu->harga }}"
-                                    data-stok="{{ $menu->stok }}" data-category="{{ $menu->category_id }}"
+                                    data-stok="{{ $menu->stok }}" data-satuan="{{ $menu->satuan }}" data-category="{{ $menu->category->nama_category ?? '-' }}"
                                     data-foto="{{ $menu->foto_menu ? asset('storage/' . $menu->foto_menu) : '' }}">
 
-                                    Edit
+                                    <i class="bi bi-eye"></i>
+
+                                </button>
+                                <button type="button" class="btn-edit btn-edit-menu me-1" onclick="return confirm('Yakin ingin mengedit menu ini?')" data-bs-toggle="offcanvas" data-bs-target="#editMenuOffcanvas"
+                                    data-action="{{ route('menus.update', $menu->id) }}"
+                                    data-nama="{{ $menu->nama_menu }}" data-harga="{{ $menu->harga }}"
+                                    data-stok="{{ $menu->stok }}" data-satuan="{{ $menu->satuan }}" data-category="{{ $menu->category_id }}"
+                                    data-foto="{{ $menu->foto_menu ? asset('storage/' . $menu->foto_menu) : '' }}">
+
+                                    <i class="bi bi-pencil-square"></i>
 
                                 </button>
 
@@ -142,7 +148,7 @@
                                     <button type="submit" class="btn-hapus"
                                         onclick="return confirm('Yakin ingin menghapus menu ini?')">
 
-                                        Hapus
+                                        <i class="bi bi-trash"></i>
 
                                     </button>
                                 </form>
@@ -180,7 +186,7 @@
                 aria-label="Close"></button>
         </div>
         <div class="offcanvas-body">
-            <form method="POST" action="{{ route('menus.store') }}" role="form" enctype="multipart/form-data">
+            <form id="form-add-menu" method="POST" action="{{ route('menus.store') }}" role="form" enctype="multipart/form-data">
                 @csrf
 
                 @include('menu.form')
@@ -208,6 +214,24 @@
         </div>
     </div>
 
+    {{-- OFF CANVAS DETAIL --}}
+    <div class="offcanvas offcanvasDetail offcanvas-end" tabindex="-1" id="detailMenuOffcanvas" aria-labelledby="detailMenuOffcanvasLabel">
+        <div class="offcanvas-header">
+            <span class="offcanvas-title" id="detailMenuOffcanvasLabel">{{ __('Detail') }} Menu</span>
+            <button type="button" class="btn-close btn-close-white" data-bs-dismiss="offcanvas"
+                aria-label="Close"></button>
+        </div>
+        <div class="offcanvas-body">
+            <form id="detailMenuForm" method="POST" action="" enctype="multipart/form-data">
+
+                @csrf
+                @method('PUT')
+
+                @include('menu.show')
+
+            </form>
+        </div>
+    </div>
     {{-- MODAL EDIT --}}
     <x-modal.action-modal id="editMenuModal" title="Edit Menu" buttonText="Lanjutkan" buttonClass="btn-edit">
 

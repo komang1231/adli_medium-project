@@ -48,7 +48,7 @@
             <table class="table">
                 <thead>
                     <tr>
-                        <th width="70">No</th>
+                        <th width="20">No</th>
                         <th width="140">Kode</th>
                         <th>Nama Kategori</th>
                         <th class="text-center">Aksi</th>
